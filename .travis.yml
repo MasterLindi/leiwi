@@ -3,3 +3,10 @@
    - "2.11.5"
  jdk:
    - oraclejdk8
+
+ notifications:
+   email:
+     recipients:
+       - christoph.lindmaier@gmx.at
+     on_success: change        # available options [always|never|change]  default: change
+     on_failure: always       # available options [always|never|change]  default: always
