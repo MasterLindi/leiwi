@@ -1,3 +1,7 @@
+
+
+packageArchetype.java_application
+
 name := """leiwi"""
 
 version := "1.0-SNAPSHOT"
