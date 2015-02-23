@@ -1,5 +1,3 @@
-
-
 packageArchetype.java_application
 
 name := """leiwi"""
