@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/leiwi -Dhttp.port=11099
+web: sbt run -http.port=$PORT $PLAY_OPTS
