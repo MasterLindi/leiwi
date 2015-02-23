@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/leiwi -Dhttp.port=${PORT} ${JAVA_OPTS}
+web: target/start -Dhttp.port=${PORT} ${JAVA_OPTS}
