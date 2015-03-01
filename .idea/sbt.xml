@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="jdk" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/addressconnector" />
+            <option value="$PROJECT_DIR$/addressconnector/project" />
+            <option value="$PROJECT_DIR$/dal" />
+            <option value="$PROJECT_DIR$/dal/project" />
+            <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/webapiconnector" />
+            <option value="$PROJECT_DIR$/webapiconnector/project" />
+            <option value="$PROJECT_DIR$/wfsconnector" />
+            <option value="$PROJECT_DIR$/wfsconnector/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.5" />
+        <option name="useAutoImport" value="true" />
+      </SbtProjectSettings>
+    </option>
+  </component>
+</project>

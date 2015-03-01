@@ -5,10 +5,10 @@ target
 tmp
 .history
 dist
-/.idea
-/*.iml
 /out
-/.idea_modules
+.idea/libraries
+.idea/copyright
+.idea/scopes
 /.classpath
 /.project
 /RUNNING_PID

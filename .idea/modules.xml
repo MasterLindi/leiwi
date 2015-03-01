@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/addressconnector/addressconnector.iml" filepath="$PROJECT_DIR$/addressconnector/addressconnector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressconnector-build.iml" filepath="$PROJECT_DIR$/.idea/modules/addressconnector-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dal/dal.iml" filepath="$PROJECT_DIR$/dal/dal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dal-build.iml" filepath="$PROJECT_DIR$/.idea/modules/dal-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/leiwi.iml" filepath="$PROJECT_DIR$/.idea/modules/leiwi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/leiwi-build.iml" filepath="$PROJECT_DIR$/.idea/modules/leiwi-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapiconnector/webapiconnector.iml" filepath="$PROJECT_DIR$/webapiconnector/webapiconnector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/webapiconnector-build.iml" filepath="$PROJECT_DIR$/.idea/modules/webapiconnector-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wfsconnector/wfsconnector.iml" filepath="$PROJECT_DIR$/wfsconnector/wfsconnector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wfsconnector-build.iml" filepath="$PROJECT_DIR$/.idea/modules/wfsconnector-build.iml" />
+    </modules>
+  </component>
+</project>
