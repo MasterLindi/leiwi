@@ -32,7 +32,6 @@
     <orderEntry type="library" name="SBT: it.geosolutions.imageio-ext:imageio-ext-utilities:1.1.10:jar" level="project" />
     <orderEntry type="library" name="SBT: java3d:vecmath:1.3.2:jar" level="project" />
     <orderEntry type="library" name="SBT: javax.media:jai_codec:1.1.3:jar" level="project" />
-    <orderEntry type="library" name="SBT: javax.media:jai_core:1.1.3:jar" level="project" />
     <orderEntry type="library" name="SBT: javax.media:jai_imageio:1.1:jar" level="project" />
     <orderEntry type="library" name="SBT: jgridshift:jgridshift:1.0:jar" level="project" />
     <orderEntry type="library" name="SBT: net.java.dev.jsr-275:jsr-275:1.0-beta-2:jar" level="project" />
