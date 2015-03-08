@@ -7,15 +7,15 @@
           <value>
             <ProjectSettingsEntry>
               <option name="version" value="2.3.8" />
-              <option name="sourceDir" value="$PROJECT_DIR$/conf" />
-              <option name="confDir" value="$PROJECT_DIR$/app" />
+              <option name="sourceDir" value="C:\DEV\Projekte\leiwi\conf" />
+              <option name="confDir" value="C:\DEV\Projekte\leiwi\app" />
               <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.3.8.jar" />
               <option name="routesImports">
                 <list>
                   <option value="controllers.Assets.Asset" />
                 </list>
               </option>
-              <option name="uri" value="$PROJECT_DIR$" />
+              <option name="uri" value="/C:/DEV/Projekte/leiwi" />
             </ProjectSettingsEntry>
           </value>
         </entry>

@@ -1,5 +1,10 @@
 resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
 
+resolvers += "Flyway" at "http://flywaydb.org/repo"
+
+addSbtPlugin("org.flywaydb" % "flyway-sbt" % "3.1")
+
+
 // The Play plugin
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.8")
 

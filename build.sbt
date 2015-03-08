@@ -20,7 +20,15 @@ lazy val leiwi = (project in file("."))
 
 lazy val addressconnector = project
 
-lazy val dal = project
+lazy val dal = (project in file("dal"))
+  .settings(
+    Seq(
+      projectDependencies ++= Seq(
+        junitDep
+      )
+    ):_*)
+  .settings(commonSettings: _*)
+  .settings(flywaySettings: _*)
 
 lazy val wfsconnector = (project in file("wfsconnector"))
   .settings(
@@ -36,10 +44,7 @@ lazy val wfsconnector = (project in file("wfsconnector"))
 lazy val webapiconnector = project
 
 libraryDependencies ++= Seq(
-  jdbc,
-  anorm,
   cache
 )
-
 
 
