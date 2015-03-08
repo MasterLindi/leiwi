@@ -6,4 +6,4 @@ libraryDependencies += "javax.media" % "jai_core" % "1.1.3" from "http://downloa
 
 libraryDependencies +=  "org.geotools" % "gt-wfs" % "13-RC1" exclude("javax.media", "jai_core")
 
-libraryDependencies +=  "com.google.guava" % "guava" % "16.0.1"
+libraryDependencies +=  "org.geotools" % "gt-epsg-hsql" % "13-RC1"
