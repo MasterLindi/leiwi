@@ -1,5 +1,6 @@
 package at.fhtw.leiwi.wfsconnector;
 
+import com.google.common.base.Preconditions;
 import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -16,24 +17,30 @@ import java.io.StringWriter;
  * Created by cli on 08/03/15.
  */
 public class GeoTools {
+
+    private final static int SRID = 4326;
+
     public static String createWktGeometryString(Geometry geometry) {
         StringWriter stringWriter = new StringWriter();
         WKTWriter wktWriter = new WKTWriter(2);
-
         try {
             wktWriter.write(geometry, stringWriter);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return stringWriter.toString();
+        return String.format("SRID=%s;%s",SRID, stringWriter.toString());
     }
 
     public static Geometry parseWktGeometryString(String wktGeometry) {
         GeometryFactory geometryFactory = createGeometryFactory();
         WKTReader wktReader = new WKTReader(geometryFactory);
-
+        String[] split = wktGeometry.split(";");
+        Preconditions.checkArgument(split.length == 2);
+        Preconditions.checkArgument(split[0].contains(String.valueOf(SRID)));
         try {
-            return wktReader.read(wktGeometry);
+            Geometry read = wktReader.read(split[1]);
+            read.setSRID(SRID);
+            return read;
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

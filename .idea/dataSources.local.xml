@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - leiwi@vbpostgres" uuid="4caec332-38ac-440d-b392-f3dc67145eeb">
+      <secret-storage>master_key</secret-storage>
+      <user-name>leiwi</user-name>
+      <schema-pattern>leiwi.pg_catalog leiwi.public</schema-pattern>
+      <default-schemas>leiwi.pg_catalog leiwi.public</default-schemas>
+    </data-source>
+  </component>
+</project>

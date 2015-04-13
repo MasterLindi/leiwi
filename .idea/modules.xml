@@ -8,8 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dal-build.iml" filepath="$PROJECT_DIR$/.idea/modules/dal-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/leiwi.iml" filepath="$PROJECT_DIR$/.idea/modules/leiwi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/leiwi-build.iml" filepath="$PROJECT_DIR$/.idea/modules/leiwi-build.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dal/project/.idea/modules/project.iml" filepath="$PROJECT_DIR$/dal/project/.idea/modules/project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dal/project/.idea/modules/project-build.iml" filepath="$PROJECT_DIR$/dal/project/.idea/modules/project-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapiconnector/webapiconnector.iml" filepath="$PROJECT_DIR$/webapiconnector/webapiconnector.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/webapiconnector-build.iml" filepath="$PROJECT_DIR$/.idea/modules/webapiconnector-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/wfsconnector/wfsconnector.iml" filepath="$PROJECT_DIR$/wfsconnector/wfsconnector.iml" />
