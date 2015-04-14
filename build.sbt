@@ -12,10 +12,6 @@ lazy val javaxMediaDep = "javax.media" % "jai_core" % "1.1.3" from "http://downl
 
 lazy val geoToolsWfsDep = "org.geotools" % "gt-wfs" % "13-RC1" exclude("javax.media", "jai_core")
 
-lazy val geoToolsHsqlDep =  "org.geotools" % "gt-epsg-hsql" % "13-RC1"
-
-
-
 lazy val commonSettings = Seq(
   organization := "at.fhtw",
   version := "0.1.0-SNAPSHOT",
@@ -55,8 +51,7 @@ lazy val wfsconnector = (project in file("wfsconnector"))
         junitDep,
         guavaDep,
         javaxMediaDep,
-        geoToolsWfsDep,
-        geoToolsHsqlDep
+        geoToolsWfsDep
       )
     ):_*)
     .settings(commonSettings: _*)
@@ -74,7 +69,6 @@ libraryDependencies ++= Seq(
   "postgresql" % "postgresql" % "9.1-901.jdbc4",
   javaxMediaDep,
   geoToolsWfsDep,
-  geoToolsHsqlDep,
   "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
 )
 
