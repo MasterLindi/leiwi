@@ -20,6 +20,7 @@ class AddressRepositoryIT extends FlatSpec{
     val addressRepo = new AddressRepositoryImpl()
     val actual = addressRepo.saveOrUpdate(address)
     assert(actual == null)
+    WithTestServer.stop()
   }
 
   it should "be read from db" in {
@@ -28,5 +29,6 @@ class AddressRepositoryIT extends FlatSpec{
     val addressRepo = new AddressRepositoryImpl()
     val actual = addressRepo.find(uuid)
     assert(actual != null)
+    WithTestServer.stop()
   }
 }

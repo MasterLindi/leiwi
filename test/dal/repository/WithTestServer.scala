@@ -42,4 +42,9 @@ object WithTestServer {
     singletonTestServer.start()
     isRunning = true
   }
+
+  def stop() = {
+    singletonTestServer.stop()
+    isRunning = false;
+  }
 }
