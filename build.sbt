@@ -22,6 +22,7 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache,
+  json,
   "postgresql" % "postgresql" % "9.1-901.jdbc4",
   javaxMediaDep,
   geoToolsWfsDep,

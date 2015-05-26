@@ -21,7 +21,7 @@ public class CSVReaderTest{
 
         //ASSERT
         assertEquals(11999, actual.size());
-        assertEquals("Radgarage Kennedybr�cke", actual.head());
+        assertEquals("Radgarage Kennedybr\u00FCcke", actual.head());
         assertEquals("Tempelgrabensteg", actual.last());
     }
 }

@@ -3,12 +3,11 @@
 <link rel="stylesheet" href="http://openlayers.org/en/v3.2.1/css/ol.css" type="text/css">
 <style>
 .map {
-height : 400px ;
-width : 650px ;
+height : 400 px ;
+width : 650 px ;
 }
 </style>
 <script src="http://openlayers.org/en/v3.2.1/build/ol.js" type="text/javascript"></script>
-
 @main("Leiwi") {
     <div class="container theme-showcase">
         <div class="row">
@@ -16,74 +15,64 @@ width : 650px ;
                 <h4>LEIWI- Lebensqualität in Wien - Willkommen!</h4>
             </div>
         </div>
-    <div class="row">
-        <div class="col-md-12">
-            Mit LEIWI kannst du abhängig von dem was Dir wichtig ist,
-            die Lebensqualität für eine bestimmte Adresse in Wien ermitteln.
+        <div class="row">
+            <div class="col-md-12">
+                Mit LEIWI kannst du abhängig von dem was Dir wichtig ist,
+                die Lebensqualität für eine bestimmte Adresse in Wien ermitteln.
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            Anleitungstext
+        <div class="row">
+            <div class="col-md-12">
+                Anleitungstext
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <h5>Adresse:</h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="ui-widget">
-                <label for="comboBox_strasse">Strasse: </label>
-                <select id="combobox_strasse">
-                    <option value="Donaustadtstraße">Donaustadtstraße</option>
-                    <option value="Wagramer Straße">Wagramer Straße</option>
-                </select>
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Bitte wählen Sie ihre Adresse mittels Auswahl oder Karte:</h5>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="ui-widget">
-                <label for="comboBox_hausNummer">Hausnummer: </label>
-                <select id="combobox_hausNummer">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="ui-widget">
-                <label for="comboBox_bezirk">Bezirk: </label>
-                <select id="combobox_Bezirk">
-                    <option value="Innere Stadt">Innere Stadt</option>
-                    <option value="Donaustadt">Donaustadt</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <h5>Präferenzen</h5>
-            <div class="row">
-                <div class="col-md-12">
-                    <input id="checkBox_schule" type="checkbox" name="schule" value="Schulen"/>
-                    <label for="checkBox_schule">Schulen</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <input id="checkBox_maerkte" type="checkbox" name="maerkte" value="Märkte"/>
-                    <label for="checkBox_maerkte">Märkte</label>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ui-widget">
+                    <label for="autoComplete_adresse">Addresse wählen: </label>
+                    <input id="autoComplete_adresse">
+                    <script type="text/javascript">
+    $( "#autoComplete_adresse" ).autocomplete({
+      source: "/addressSearch",
+      minLength: 2,
+      select: function( event, ui ) {
+        $( "#autoComplete_adresse" ).val(ui.item.street + ", " + ui.item.houseNr );
+             return false;
+      }})
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.street + ", " + item.houseNr + "</a>" )
+        .appendTo( ul );
+    };
+</script>
                 </div>
             </div>
         </div>
-        <div id="map" class="col-md-9 map">
-            <script type="text/javascript">
+
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Präferenzen</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input id="checkBox_schule" type="checkbox" name="schule" value="Schulen"/>
+                        <label for="checkBox_schule">Schulen</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input id="checkBox_maerkte" type="checkbox" name="maerkte" value="Märkte"/>
+                        <label for="checkBox_maerkte">Märkte</label>
+                    </div>
+                </div>
+            </div>
+            <div id="map" class="col-md-9 map">
+                <script type="text/javascript">
 
         var iconFeatures=[];
 
@@ -125,20 +114,44 @@ var vectorLayer = new ol.layer.Vector({
   source: vectorSource
 });
 
+var view = new ol.View ( {
+            center: ol.proj.transform([16.3800599, 48.2206849], 'EPSG:4326', 'EPSG:3857'),
+            zoom : 11
+  } );
+
   var map = new ol.Map ( {
             target : 'map',
             layers :[
             new ol.layer.Tile ( {
             source : new ol.source.OSM ()
             } ), vectorLayer],
-            view : new ol.View ( {
-            center: ol.proj.transform([16.3800599, 48.2206849], 'EPSG:4326', 'EPSG:3857'),
-            zoom : 11
-            } )
+            view : view
             } ) ;
+
+ map.on('singleclick', function(evt) {
+  var viewResolution = /** type {number} */ (view.getResolution());
+  var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+  console.log("Coordinate: ", coord);
+  console.log("ViewResolution: ", viewResolution);
+  var jsonData = new Object();
+  jsonData.lat = coord.shift();
+  jsonData.lon = coord.shift();
+  console.log("JsonData: " + jsonData.lat + ", " + jsonData.lon);
+  console.log("Stringified JsonData: " + JSON.stringify(jsonData));
+  $.ajax({
+data: JSON.stringify(jsonData),
+ dataType: 'json',
+ type: 'POST',
+ url:"coord",
+ contentType: 'application/json; charset=utf-8',
+ success:  function(json){
+  console.log(json.value);
+ }
+ });
+});
         </script>
 
+            </div>
         </div>
-    </div>
-    }
+        }
 </div>

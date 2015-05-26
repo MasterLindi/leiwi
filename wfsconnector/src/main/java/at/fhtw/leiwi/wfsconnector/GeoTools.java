@@ -189,4 +189,15 @@ public class GeoTools {
     public static GeometryFactory createGeometryFactory() {
         return new GeometryFactory(new PrecisionModel(), 4326);
     }
+
+    public static Double getLongitude(Geometry geometry){
+        Point point = (Point) geometry;
+        return point.getX();
+    }
+
+    public static Double getLattitude(Geometry geometry){
+        Point point = (Point)geometry;
+        return point.getY();
+    }
+
 }

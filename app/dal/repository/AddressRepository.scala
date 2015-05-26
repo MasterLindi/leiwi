@@ -8,10 +8,19 @@ import model.Address
  */
 trait AddressRepository {
 
-  def saveOrUpdate(address : Address) : Address
+  def update(address : Address) : Boolean
+
+  def save(address : Address) : Boolean
 
   def find(id: UUID) : Option[Address]
 
+  def findAll() : List[Address]
+
+  def findAllStreets() : List[Address]
+
   def get(id : UUID) : Address
 
+  def remove(id : UUID) :Unit
+
+  def removeAll() : Unit
 }

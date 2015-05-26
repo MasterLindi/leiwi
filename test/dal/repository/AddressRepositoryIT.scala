@@ -18,8 +18,8 @@ class AddressRepositoryIT extends FlatSpec{
     val geometry = GeoTools.createPoint(12.0, 32.4)
     val address = new Address(uuid, "Hauptstraße", "101", 2275, "Donaustadt", geometry, new DateTime(2012,12,12,0,0))
     val addressRepo = new AddressRepositoryImpl()
-    val actual = addressRepo.saveOrUpdate(address)
-    assert(actual == null)
+    val actual = addressRepo.save(address)
+    assert(actual)
     WithTestServer.stop()
   }
 

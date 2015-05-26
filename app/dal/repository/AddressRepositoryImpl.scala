@@ -10,12 +10,47 @@ import play.api.Play.current
 import play.api.db.DB
 
 import scala.language.postfixOps
+
 /**
  * Created by Christoph on 12.04.2015.
  */
 class AddressRepositoryImpl extends AddressRepository {
-  override def saveOrUpdate(address: Address): Address = {
 
+  override def findAll(): List[Address] = {
+    val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
+      "updateTime from Address;")
+    DB.withConnection { implicit connection =>
+      val result: List[Address] = sqlQuery
+        .as(Address.simple *)
+      return result;
+    }
+  }
+
+  override def findAllStreets(): List[Address] = {
+    val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
+      "updateTime from Address where zip = -1;")
+    DB.withConnection { implicit connection =>
+      val result: List[Address] = sqlQuery
+        .as(Address.simple *)
+      return result;
+    }
+  }
+
+  override def update(address: Address): Boolean = {
+    val result = DB.withConnection { implicit connection =>
+      val idObject: PGobject = createId(address.id)
+      SQL("update Address set street = {street}, houseNr = {houseNr}, zip = {zip}, " +
+        "district = {district} , coordinate = ST_GeomFromEWKT({coordinate}), updateTime = {updateTime} " +
+        "where id = {id}")
+        .on('id -> anorm.Object(idObject), 'street -> address.street,
+          'houseNr -> address.houseNr, 'zip -> address.zip, 'district -> address.district,
+          'coordinate -> GeoTools.createWktGeometryString(address.coordinate),
+          'updateTime -> address.updateTime).execute()
+    }
+    result
+  }
+
+  override def save(address: Address): Boolean = {
     val result = DB.withConnection { implicit connection =>
       val idObject: PGobject = createId(address.id)
       SQL("insert into Address(id, street, houseNr, zip, district, coordinate, updateTime) " +
@@ -24,14 +59,9 @@ class AddressRepositoryImpl extends AddressRepository {
           'houseNr -> address.houseNr, 'zip -> address.zip, 'district -> address.district,
           'coordinate -> GeoTools.createWktGeometryString(address.coordinate),
           'updateTime -> address.updateTime).execute()
+
     }
-//    find(address.id) match{
-//      case None =>
-//
-//        get(address.id)
-//      case Some(x) => null
-//    }
-    null
+    result
   }
 
   private[AddressRepositoryImpl] def createId(id: UUID): PGobject = {
@@ -42,10 +72,12 @@ class AddressRepositoryImpl extends AddressRepository {
   }
 
   override def get(id: UUID): Address = {
-    val sqlQuery = SQL("select * from Address where id = {id};")
+    val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
+      "updateTime from Address where id = {id};")
     DB.withConnection { implicit connection =>
+      val idObject: PGobject = createId(id)
       val result: List[Address] = sqlQuery
-        .on("id" -> id)
+        .on("id" -> anorm.Object(idObject))
         .as(Address.simple *)
       return result.head;
     }
@@ -59,7 +91,25 @@ class AddressRepositoryImpl extends AddressRepository {
       val result: List[Address] = sqlQuery
         .on('id -> anorm.Object(idObject))
         .as(Address.simple *)
-      return Some(result.head);
+      if (result.isEmpty) {
+        return None
+      }
+      Option(result.head) orElse None
+    }
+  }
+
+  override def remove(id: UUID): Unit = {
+    val sqlQuery = SQL("delete * from Address where id = {id};")
+    DB.withConnection { implicit connection =>
+      val idObject: PGobject = createId(id)
+      sqlQuery.on('id -> anorm.Object(idObject)).execute()
+    }
+  }
+
+  override def removeAll(): Unit = {
+    val sqlQuery = SQL("delete from Address;")
+    DB.withConnection { implicit connection =>
+      sqlQuery.execute()
     }
   }
 }
