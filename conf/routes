@@ -6,7 +6,7 @@
 GET        /                     controllers.Application.index
 
 # Address
-GET        /addressSearch        controllers.Address.index
+GET        /addressSearch        controllers.Address.index(term: String)
 POST        /coord                controllers.Address.getAddress
 
 # Map static resources from the /public folder to the /assets URL path

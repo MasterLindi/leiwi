@@ -28,9 +28,11 @@ object Address extends Controller {
     (JsPath \ "lon").read[Double]
   )(CoordinateVM.apply _)
 
-  def index = Action {
+  def index(term: String) = Action {
+
     val addressService = new AddressServiceImpl()
-    val json = Json.toJson(addressService.findAllStreets())
+
+    val json = Json.toJson(addressService.findStreetByName(term))
     Ok(json)
   }
 
@@ -41,8 +43,9 @@ object Address extends Controller {
         BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toFlatJson(errors)))
       },
       coord => {
-        val addressVM = new AddressVM(UUID.randomUUID(), String.valueOf(coord.lon + ", " + coord.lat), "houseNr", 0, "district", 16.270883264257815, 48.245703304674436)
-        val json = Json.toJson(addressVM)
+        val addressService = new AddressServiceImpl()
+        val nearestAddress = addressService.findNearestAddress(coord);
+        val json = Json.toJson(nearestAddress)
         Ok(json)
       }
     )

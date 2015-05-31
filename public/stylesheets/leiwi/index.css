@@ -1,0 +1,15 @@
+.map {
+    margin-top: 40px;
+    height: 500px ;
+    width: 700px ;
+}
+.ui-autocomplete {
+    max-height: 400px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+.ui-autocomplete-input{
+    width:500px;
+}

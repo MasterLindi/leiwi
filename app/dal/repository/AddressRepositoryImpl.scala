@@ -4,6 +4,7 @@ import java.util.UUID
 
 import anorm._
 import at.fhtw.leiwi.wfsconnector.GeoTools
+import com.vividsolutions.jts.geom.Geometry
 import model.Address
 import org.postgresql.util.PGobject
 import play.api.Play.current
@@ -15,6 +16,29 @@ import scala.language.postfixOps
  * Created by Christoph on 12.04.2015.
  */
 class AddressRepositoryImpl extends AddressRepository {
+  def findNearestAddress(point: Geometry) : Address = {
+    val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
+      "updateTime from Address where ST_Distance(coordinate,ST_GeomFromEWKT({coordinate})) <= " +
+      "(Select Min(ST_Distance(coordinate,ST_GeomFromEWKT({coordinate}))) from Address);")
+    DB.withConnection { implicit connection =>
+      val result: List[Address] = sqlQuery
+            .on('coordinate -> GeoTools.createWktGeometryString(point))
+        .as(Address.simple*)
+      return result.head;
+    }
+  }
+
+  def findByName(term: String) : List[Address] = {
+    val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
+      "updateTime from Address where street like {streetName} order by street, houseNr LIMIT 50;")
+    DB.withConnection { implicit connection =>
+      val result: List[Address] = sqlQuery
+        .on('streetName -> (term + "%"))
+        .as(Address.simple *)
+      return result;
+    }
+  }
+
 
   override def findAll(): List[Address] = {
     val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +

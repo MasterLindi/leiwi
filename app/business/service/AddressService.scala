@@ -1,6 +1,6 @@
 package business.service
 
-import view.model.AddressVM
+import view.model.{AddressVM, CoordinateVM}
 
 /**
  * Created by Christoph on 12.04.2015.
@@ -8,4 +8,7 @@ import view.model.AddressVM
 trait AddressService {
   def findAllStreets() : List[AddressVM]
 
+  def findStreetByName(term: String) : List[AddressVM]
+
+  def findNearestAddress(coord: CoordinateVM) : AddressVM
 }
