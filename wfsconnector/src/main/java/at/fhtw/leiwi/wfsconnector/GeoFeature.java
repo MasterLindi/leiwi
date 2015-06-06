@@ -6,15 +6,15 @@ import com.vividsolutions.jts.geom.Geometry;
  * Created by Christoph on 01.03.2015.
  */
 public class GeoFeature {
-    private String name;
+    private String type;
     private Geometry polygon;
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Geometry getPolygon() {

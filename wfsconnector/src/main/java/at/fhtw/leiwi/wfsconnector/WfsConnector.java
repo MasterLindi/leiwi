@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class WfsConnector {
 
-    public static FeatureIterator<SimpleFeature> getFeatures(String wfsName) {
+    public static FeatureIterator<SimpleFeature> getFeatures(String wfsName, String type) {
         try {
             Map connectionParameters = new HashMap();
             connectionParameters.put("WFSDataStoreFactory:GET_CAPABILITIES_URL", wfsName);
@@ -24,8 +24,9 @@ public class WfsConnector {
             DataStore data = DataStoreFinder.getDataStore(connectionParameters);
 
             // Step 3 - discouvery
-            String typeNames[] = data.getTypeNames();
-            String typeName = typeNames[0];
+            //           String typeNames[] = data.getTypeNames();
+//            String typeName = typeNames[0];
+            String typeName = type;
             SimpleFeatureType schema = data.getSchema(typeName);
 
             // Step 4 - target

@@ -24,6 +24,7 @@ public class GeoTools {
         StringWriter stringWriter = new StringWriter();
         WKTWriter wktWriter = new WKTWriter(2);
         try {
+
             wktWriter.write(geometry, stringWriter);
         } catch (IOException e) {
             throw new RuntimeException(e);

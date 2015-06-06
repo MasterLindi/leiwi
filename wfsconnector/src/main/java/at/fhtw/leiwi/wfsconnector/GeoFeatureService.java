@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface GeoFeatureService {
 
-    public List<GeoFeature> getGeoFeature();
+    public List<GeoFeature> getGeoFeature(String type);
 }
