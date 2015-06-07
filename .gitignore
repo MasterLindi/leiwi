@@ -9,7 +9,11 @@ dist
 .idea/libraries
 .idea/copyright
 .idea/scopes
+.idea/sbt.xml
+.idea/workspace.xml
+.idea/play2_project_settings.xml
 /.classpath
 /.project
 /RUNNING_PID
 /.settings
+/*.iml
