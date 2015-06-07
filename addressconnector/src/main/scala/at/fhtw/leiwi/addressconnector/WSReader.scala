@@ -29,7 +29,7 @@ class WSReader {
 
       val json = Json.parse(jsonString.head)
 
-      val bezirk = (json \\ "MunicipalitySubdivision").head.toString()
+      val bezirk = (json \\ "MunicipalitySubdivision").head.asInstanceOf[JsString].value
 
       val zip = (json \\ "Bezirk").head.asInstanceOf[JsString].value.toInt
 
