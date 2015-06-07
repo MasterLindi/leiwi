@@ -27,6 +27,7 @@ $("#button_reset").click(function (event) {
     storeCoordinateInHiddenFields(0, 0);
     removeMarker();
     removeCircle();
+    $("#button_details").addClass("invisible");
 });
 
 $("#button_berechnen").click(function (event) {
@@ -45,7 +46,25 @@ $("#button_berechnen").click(function (event) {
         url: "calculateIndex",
         contentType: 'application/json; charset=utf-8',
         success:  function(item){
-            addCircleToMap(item.index)
+            calculatedValues = item;
+            addCircleToMap(item.index);
+            $("#button_details").removeClass("invisible");
         }
     });
+});
+
+var calculatedValues = null;
+
+$("#button_details").click(function (event){
+    if (calculatedValues != null){
+        $.ajax({
+            data: JSON.stringify(calculatedValues),
+            dataType: 'json',
+            type: 'GET',
+            url: "details",
+            contentType: 'application/json; charset=utf-8'
+        });
+    }else{
+        //TODO show error message
+    }
 });

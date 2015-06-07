@@ -5,6 +5,10 @@
 # Home page
 GET         /                      controllers.Application.index
 
+# Index Details
+GET         /detail               controllers.Application.detail
+GET         /details               controllers.Application.details
+
 # Address
 GET         /addressSearch         controllers.Address.index(term: String)
 POST        /coord                 controllers.Address.getAddress
