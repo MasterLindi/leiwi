@@ -45,22 +45,56 @@ public class IndexCalculator {
         //Kindergarten
         katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:KINDERGARTENOGD",adresseFeature,radius));
         //Öffentlich zugängliche Grünflächen
-        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:OEFFGRUENFLOGD",adresseFeature,radius));
+        //katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:OEFFGRUENFLOGD",adresseFeature,radius));
         //Garagen
         katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:GARAGENOGD",adresseFeature,radius));
         //Krankenanstalten
         katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:KRANKENHAUSOGD",adresseFeature,radius));
-        //Wohn-und Pflegehaus
-        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:WOHNPFLEGEHAUSOGD",adresseFeature,radius));
-        //Wanderwege
-        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:WANDERWEGEOGD",adresseFeature,radius));
+//        //Wohn-und Pflegehaus
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:WOHNPFLEGEHAUSOGD",adresseFeature,radius));
+//        //Wanderwege
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:WANDERWEGEOGD",adresseFeature,radius));
+//        //Sportstätten
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:SPORTSTAETTENOGD",adresseFeature,radius));
+//        //Badestellen
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:BADESTELLENOGD",adresseFeature,radius));
+//        //Spielplätze
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:SPIELPLATZOGD",adresseFeature,radius));
+//        //Fußgängerzonen
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:FUSSGEHERZONEOGD",adresseFeature,radius));
+//        //Wohnstraßen
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:WOHNSTRASSEOGD",adresseFeature,radius));
+//        //Wohnstraßen
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:TEMPOZONEOGD",adresseFeature,radius));
+//        //Public WLAN
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:WLANWIENATOGD",adresseFeature,radius));
+//        //Schwimmbad
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:SCHWIMMBADOGD",adresseFeature,radius));
+//        //Schwimmbad
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:FAHRRADABSTELLANLAGEOGD",adresseFeature,radius));
+//        //Haltestellen - Wiener Linien
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:HALTESTELLEWLOGD",adresseFeature,radius));
+//        //Parkanlagen
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:PARKANLAGEOGD",adresseFeature,radius));
+//        //Öffentliches Verkehrsnetz Haltestellenpunkte
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:OEFFHALTESTOGD",adresseFeature,radius));
+//        //Carsharing
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:CARSHARINGOGD",adresseFeature,radius));
+//        //Citybike
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:CITYBIKEOGD",adresseFeature,radius));
+//        //Hundekotsackerlspender
+//        katalogList.add(featureImporter.createKatalogFromFeatureSource(IndexCalculator.CapabilitiesString, "ogdwien:HUNDESACKERLOGD",adresseFeature,radius));
 
 
-
-
+        double resultIndexBewertung = 0;
         for (Katalog katalog : katalogList) {
+            resultIndexBewertung +=katalog.getIndexBewertung();
             System.out.println(katalog.toString());
         }
+
+        double gesamt = resultIndexBewertung/new Double(katalogList.size());
+        indexResult.setGesamtIndex(gesamt);
+        System.out.println("Gesamtindex: "+ indexResult.getGesamtIndex());
         return indexResult;
     }
 }

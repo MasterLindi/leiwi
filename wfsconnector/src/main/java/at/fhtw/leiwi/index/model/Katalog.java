@@ -1,17 +1,21 @@
 package at.fhtw.leiwi.index.model;
 
-import org.opengis.feature.simple.SimpleFeature;
+import com.vividsolutions.jts.geom.Geometry;
+
+import java.io.Serializable;
 
 /**
  * Created by Markus on 06.06.2015.
  */
-public class Katalog {
+public class Katalog implements Serializable{
 
+    String id;
     String type;
-    SimpleFeature sf;
+    Geometry defaultGeometry;
     Double distanceFromSource;
     Integer indexBewertung;
     Integer gewichtung;
+    Integer anzahl;
 
     public Double getDistanceFromSource() {
         return distanceFromSource;
@@ -38,16 +42,21 @@ public class Katalog {
         this.indexBewertung = indexBewertung;
     }
 
-    Integer anzahl;
-
-    public SimpleFeature getSf() {
-        return sf;
+    public Geometry getDefaultGeometry() {
+        return defaultGeometry;
     }
 
-    public void setSf(SimpleFeature sf) {
-        this.sf = sf;
+    public void setDefaultGeometry(Geometry defaultGeometry) {
+        this.defaultGeometry = defaultGeometry;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;
@@ -69,10 +78,18 @@ public class Katalog {
     public String toString() {
         return "Katalog{" +
                 "type='" + type + '\'' +
-                ", sf=" + sf +
+                ", geometry=" + defaultGeometry +
                 ", distanceFromSource=" + distanceFromSource +
                 ", indexBewertung=" + indexBewertung +
                 ", anzahl=" + anzahl +
+                '}';
+    }
+
+    public String toStringAusgabe() {
+        return "Katalog{" +
+                "type='" + type + '\'' +
+                ", distanceFromSource=" + distanceFromSource +
+                ", indexBewertung=" + indexBewertung +
                 '}';
     }
 }

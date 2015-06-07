@@ -10,13 +10,13 @@ public class IndexResult {
 
     List<Katalog> katalogList;
 
-    Long gesamtIndex;
+    Double gesamtIndex;
 
-    public Long getGesamtIndex() {
+    public Double getGesamtIndex() {
         return gesamtIndex;
     }
 
-    public void setGesamtIndex(Long gesamtIndex) {
+    public void setGesamtIndex(Double gesamtIndex) {
         this.gesamtIndex = gesamtIndex;
     }
 
