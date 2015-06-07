@@ -1,10 +1,7 @@
 package at.fhtw.leiwi.feature.dao;
 
 import at.fhtw.leiwi.index.model.Katalog;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.*;
 import org.opengis.feature.simple.SimpleFeature;
 import org.postgis.PGgeometry;
 
@@ -38,9 +35,24 @@ public class FeatureDaoImpl implements FeatureDao {
             String geomsql ="INSERT INTO feature(id, coordinate,type) VALUES (?,ST_SetSRID(ST_MakePoint(?, ?), 4326),?)";
             PreparedStatement psSE= null;
             psSE = conn.prepareStatement(geomsql);
-        //    Point point = (Point) simpleFeature.getDefaultGeometry();
-            Polygon polygon = (Polygon)simpleFeature.getDefaultGeometry();
-            Coordinate[] coordinateArray = polygon.getCoordinates();
+            Coordinate[] coordinateArray = null;
+            if (simpleFeature.getDefaultGeometry() instanceof Point) {
+                Point point = (Point) simpleFeature.getDefaultGeometry();
+                coordinateArray = point.getCoordinates();
+            }else if (simpleFeature.getDefaultGeometry() instanceof Polygon) {
+                Polygon polygon = (Polygon)simpleFeature.getDefaultGeometry();
+                coordinateArray = polygon.getCoordinates();
+            }else if (simpleFeature.getDefaultGeometry() instanceof LineString) {
+                LineString lineString = (LineString)simpleFeature.getDefaultGeometry();
+                coordinateArray = lineString.getCoordinates();
+            }else if (simpleFeature.getDefaultGeometry() instanceof MultiLineString) {
+                MultiLineString lineString = (MultiLineString)simpleFeature.getDefaultGeometry();
+                coordinateArray = lineString.getCoordinates();
+            }else if (simpleFeature.getDefaultGeometry() instanceof MultiPolygon) {
+                MultiPolygon lineString = (MultiPolygon)simpleFeature.getDefaultGeometry();
+                coordinateArray = lineString.getCoordinates();
+            }
+
             Coordinate coordinate = coordinateArray[0];
             org.postgis.Point pointDb = new org.postgis.Point(coordinate.x,coordinate.y);
             psSE.setString(1, simpleFeature.getID());
@@ -97,7 +109,7 @@ public class FeatureDaoImpl implements FeatureDao {
 
             }
             psSE.close();
-            conn.close();
+
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -32,49 +32,88 @@ public class FeatureImporter {
 
     public final static String CapabilitiesString = "http://data.wien.gv.at/daten/geo?version=1.1.0&service=WFS&request=GetCapabilities";
 
-    public Katalog createKatalogFromFeatureSource(String wfsName, String type, SimpleFeature source, Double radius){
-        
-        FeatureIterator<SimpleFeature> features = WfsConnector.getFeatures(CapabilitiesString, type);
+    public Katalog createKatalogFromFeatureSourceDB(String wfsName, String type, SimpleFeature source, Double radius) {
+        List<Katalog> resultListDB = featureDao.selectKatalogListFromFeature(type);
         Katalog katalog = null;
         List<Katalog> resultList = new ArrayList();
         Double distanceResult = Double.parseDouble("0");
-        while(features.hasNext()) {
-            SimpleFeature sf = features.next();
-//            featureDao.insertFeature(sf,type);
-            Geometry defaultGeometry = (Geometry) sf.getDefaultGeometry();
-            Double distanceSourceToFeature = defaultGeometry.distance((Geometry) source.getDefaultGeometry());
-            if (distanceResult == 0) {
-                distanceResult = distanceSourceToFeature;
-            }
+        for (Katalog katalogDB : resultListDB) {
 
-
-
-            if (distanceSourceToFeature < distanceResult){
-                distanceResult = distanceSourceToFeature;
-                katalog = new Katalog();
-                katalog.setId(sf.getID());
-                katalog.setType(type);
-                katalog.setDefaultGeometry(defaultGeometry);
-                katalog.setDistanceFromSource(distanceResult);
-                if (distanceResult < radius/4){
-                    katalog.setIndexBewertung(1);
-                }else if (distanceResult > (radius/4) && distanceResult < (radius/4*2)){
-                    katalog.setIndexBewertung(2);
-                }else if (distanceResult > (radius/2) && distanceResult < (radius/4*3)){
-                    katalog.setIndexBewertung(3);
-                }else if (distanceResult > (radius/3) && distanceResult < (radius)){
-                    katalog.setIndexBewertung(4);
-                }else{
-                    katalog.setIndexBewertung(5);
+                Geometry defaultGeometry = katalogDB.getDefaultGeometry();
+                Double distanceSourceToFeature = defaultGeometry.distance((Geometry) source.getDefaultGeometry());
+                if (distanceResult == 0) {
+                    distanceResult = distanceSourceToFeature;
                 }
 
+
+                if (distanceSourceToFeature < distanceResult) {
+                    distanceResult = distanceSourceToFeature;
+                    katalog = new Katalog();
+                    katalog.setId(katalogDB.getId());
+                    katalog.setType(type);
+                    katalog.setDefaultGeometry(defaultGeometry);
+                    katalog.setDistanceFromSource(distanceResult);
+                    if (distanceResult < radius / 4) {
+                        katalog.setIndexBewertung(1);
+                    } else if (distanceResult > (radius / 4) && distanceResult < (radius / 4 * 2)) {
+                        katalog.setIndexBewertung(2);
+                    } else if (distanceResult > (radius / 2) && distanceResult < (radius / 4 * 3)) {
+                        katalog.setIndexBewertung(3);
+                    } else if (distanceResult > (radius / 3) && distanceResult < (radius)) {
+                        katalog.setIndexBewertung(4);
+                    } else {
+                        katalog.setIndexBewertung(5);
+                    }
+
+                }
+
+
             }
 
-
-
+            return katalog;
         }
 
-        return katalog;
+
+
+    private void importKatalogFromFeatureSource(String wfsName, String type){
+        
+        FeatureIterator<SimpleFeature> features = WfsConnector.getFeatures(CapabilitiesString, type);
+
+        while(features.hasNext()) {
+            SimpleFeature sf = features.next();
+            featureDao.insertFeature(sf,type);
+        }
+    }
+
+    public void importKatalogeFromWFS(){
+
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:MARKTFLAECHEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SCHULEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:UNIVERSITAETOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:VOLKSHOCHSCHULEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:KINDERGARTENOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:GARAGENOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:KRANKENHAUSOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WOHNPFLEGEHAUSOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WANDERWEGEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SPORTSTAETTENOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:BADESTELLENOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SPIELPLATZOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:FUSSGEHERZONEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WOHNSTRASSEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:TEMPOZONEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WLANWIENATOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SCHWIMMBADOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:FAHRRADABSTELLANLAGEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HALTESTELLEWLOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:PARKANLAGEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:OEFFHALTESTOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:CARSHARINGOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:CITYBIKEOGD");
+        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HUNDESACKERLOGD");
+
+
+
     }
 
     public static void main(String[] args){
