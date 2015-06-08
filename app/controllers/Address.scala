@@ -45,6 +45,8 @@ object Address extends Controller {
   implicit val indexValReads: Reads[IndexVM] = (
     (JsPath \ "lon").read[Double] and
       (JsPath \ "lat").read[Double] and
+      (JsPath \ "common").read[Boolean] and
+      (JsPath \ "mobility").read[Boolean] and
       (JsPath \ "family").read[Boolean] and
       (JsPath \ "students").read[Boolean] and
       (JsPath \ "retired").read[Boolean]

@@ -37,12 +37,4 @@ object Application extends Controller {
     (JsPath \ "index").read[Double] and
       (JsPath \ "details").read[List[IndexDetailVM]]
     )(IndexResultVM.apply _)
-
-  def detail = Action {
-    Ok(views.html.detail(null))
-  }
-
-  def details = Action {
-    Redirect(routes.Application.detail())
-  }
 }

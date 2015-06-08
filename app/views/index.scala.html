@@ -35,24 +35,36 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <h5>Bitte wählen Sie Ihre Zielgruppe: </h5>
                 <div class="row">
                     <div class="col-md-12">
+                        <input id="checkBox_allgemein" type="checkbox" name="allgmein" value="Allgemein"/>
+                        <label for="checkBox_allgemein">Allgmein (alle Kataloge)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input id="checkBox_mobilitaet" type="checkbox" name="mobilitaet" value="Mobilität"/>
+                        <label for="checkBox_mobilitaet">Mobilität</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <input id="checkBox_familie" type="checkbox" name="familie" value="Familie"/>
-                        <label for="checkBox_familie">Familie</label>
+                        <label for="checkBox_familie">Familien</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <input id="checkBox_student" type="checkbox" name="student" value="Student"/>
-                        <label for="checkBox_student">Student</label>
+                        <label for="checkBox_student">Studenten</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <input id="checkBox_pensionist" type="checkbox" name="pensionist" value="Pensionist"/>
-                        <label for="checkBox_pensionist">Pensionist</label>
+                        <label for="checkBox_pensionist">Pensionisten</label>
                     </div>
                 </div>
                 <div class="row">
@@ -64,15 +76,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <button id="button_details" class="invisible">Details anzeigen</button>
+                    <div id="details" class="col-md-12 invisible">
+                        <table class="table table-striped">
+                            <thead>
+                                <th>Katalog</th>
+                                <th>Indexwert</th>
+                                <th>Entität</th>
+                            </thead>
+                            <tbody id="detailtable">
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div id="map" class="col-md-10 map"> </div>
+            <div id="map" class="col-md-9 map"> </div>
         </div>
     </div>
-        }
+}
 
 <link rel="stylesheet" href="http://openlayers.org/en/v3.5.0/css/ol.css" type="text/css">
 <script src="http://openlayers.org/en/v3.5.0/build/ol.js" type="text/javascript"></script>

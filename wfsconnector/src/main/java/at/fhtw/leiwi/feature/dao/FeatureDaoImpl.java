@@ -3,7 +3,6 @@ package at.fhtw.leiwi.feature.dao;
 import at.fhtw.leiwi.index.model.Katalog;
 import com.vividsolutions.jts.geom.*;
 import org.opengis.feature.simple.SimpleFeature;
-import org.postgis.PGgeometry;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+//import org.postgis.PGgeometry;
 
 /**
  * Created by Markus on 07.06.2015.
@@ -29,8 +30,8 @@ public class FeatureDaoImpl implements FeatureDao {
     public void insertFeature(SimpleFeature simpleFeature, String type){
 
         try {
-            ((org.postgresql.PGConnection)conn).addDataType("geometry",Class.forName("org.postgis.PGgeometry"));
-            ((org.postgresql.PGConnection)conn).addDataType("box3d",Class.forName("org.postgis.PGbox3d"));
+//            ((org.postgresql.PGConnection)conn).addDataType("geometry",Class.forName("org.postgis.PGgeometry"));
+//            ((org.postgresql.PGConnection)conn).addDataType("box3d",Class.forName("org.postgis.PGbox3d"));
 
             String geomsql ="INSERT INTO feature(id, coordinate,type) VALUES (?,ST_SetSRID(ST_MakePoint(?, ?), 4326),?)";
             PreparedStatement psSE= null;
@@ -54,7 +55,7 @@ public class FeatureDaoImpl implements FeatureDao {
             }
 
             Coordinate coordinate = coordinateArray[0];
-            org.postgis.Point pointDb = new org.postgis.Point(coordinate.x,coordinate.y);
+//            org.postgis.Point pointDb = new org.postgis.Point(coordinate.x,coordinate.y);
             psSE.setString(1, simpleFeature.getID());
             psSE.setDouble(2, coordinate.x);
             psSE.setDouble(3, coordinate.y);
@@ -70,8 +71,8 @@ public class FeatureDaoImpl implements FeatureDao {
             psSE.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+//        } catch (ClassNotFoundException e) {
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -85,8 +86,8 @@ public class FeatureDaoImpl implements FeatureDao {
         List<Katalog> resultList = new ArrayList();
         try {
 
-            ((org.postgresql.PGConnection) conn).addDataType("geometry", Class.forName("org.postgis.PGgeometry"));
-            ((org.postgresql.PGConnection)conn).addDataType("box3d",Class.forName("org.postgis.PGbox3d"));
+//            ((org.postgresql.PGConnection) conn).addDataType("geometry", Class.forName("org.postgis.PGgeometry"));
+//            ((org.postgresql.PGConnection)conn).addDataType("box3d",Class.forName("org.postgis.PGbox3d"));
 
 
             String geomsql ="select * from feature where type = ?";
@@ -98,12 +99,12 @@ public class FeatureDaoImpl implements FeatureDao {
 
                 Katalog katalog = new Katalog();
                 katalog.setId(r.getString(1));
-                PGgeometry geom = (PGgeometry)r.getObject(2);
+//                PGgeometry geom = (PGgeometry)r.getObject(2);
 
                 GeometryFactory geometryFactory=new GeometryFactory();
-                Coordinate coord=new Coordinate(geom.getGeometry().getFirstPoint().x,geom.getGeometry().getFirstPoint().y);
-                Point point=geometryFactory.createPoint(coord);
-                katalog.setDefaultGeometry(point);
+//                Coordinate coord=new Coordinate(geom.getGeometry().getFirstPoint().x,geom.getGeometry().getFirstPoint().y);
+//                Point point=geometryFactory.createPoint(coord);
+//                katalog.setDefaultGeometry(point);
                 katalog.setType(r.getString(3));
                 resultList.add(katalog);
 
@@ -113,8 +114,8 @@ public class FeatureDaoImpl implements FeatureDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
         }
 
         return resultList;

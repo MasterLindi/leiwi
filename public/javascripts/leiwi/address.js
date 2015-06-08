@@ -21,13 +21,15 @@ function storeCoordinateInHiddenFields(lon, lat) {
 
 $("#button_reset").click(function (event) {
     $("#autoComplete_adresse").val("");
+    $("#checkBox_allgemein").prop("checked",false);
+    $("#checkBox_mobilitaet").prop("checked",false);
     $("#checkBox_familie").prop("checked",false);
     $("#checkBox_student").prop("checked",false);
     $("#checkBox_pensionist").prop("checked",false);
     storeCoordinateInHiddenFields(0, 0);
     removeMarker();
     removeCircle();
-    $("#button_details").addClass("invisible");
+    $("#details").addClass("invisible");
 });
 
 $("#button_berechnen").click(function (event) {
@@ -35,6 +37,8 @@ $("#button_berechnen").click(function (event) {
     var jsonData = {};
     jsonData.lon = coordStorage.prop("lon");
     jsonData.lat = coordStorage.prop("lat");
+    jsonData.common =  $("#checkBox_allgemein").prop("checked");
+    jsonData.mobility =  $("#checkBox_mobilitaet").prop("checked");
     jsonData.family =  $("#checkBox_familie").prop("checked");
     jsonData.students = $("#checkBox_student").prop("checked");
     jsonData.retired = $("#checkBox_pensionist").prop("checked");
@@ -48,23 +52,14 @@ $("#button_berechnen").click(function (event) {
         success:  function(item){
             calculatedValues = item;
             addCircleToMap(item.index);
-            $("#button_details").removeClass("invisible");
+            $.each(item.details, function() {
+                $("#detailtable").append("<tr>" +
+                    "<td>"+ this.catalogName + "</td>" +
+                    "<td>"+ this.calculatedValue + "</td>" +
+                    "<td>"+ this.distance + "</td>" +
+                    "</tr>");
+            });
+            $("#details").removeClass("invisible");
         }
     });
-});
-
-var calculatedValues = null;
-
-$("#button_details").click(function (event){
-    if (calculatedValues != null){
-        $.ajax({
-            data: JSON.stringify(calculatedValues),
-            dataType: 'json',
-            type: 'GET',
-            url: "details",
-            contentType: 'application/json; charset=utf-8'
-        });
-    }else{
-        //TODO show error message
-    }
 });
