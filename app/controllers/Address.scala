@@ -28,7 +28,9 @@ object Address extends Controller {
       (JsPath \ "calculatedValue").write[Double] and
       (JsPath \ "lon").write[Double] and
       (JsPath \ "lat").write[Double] and
-      (JsPath \ "distance").write[Double]
+      (JsPath \ "distance").write[Double] and
+      (JsPath \ "priority").write[Double] and
+      (JsPath \ "countEntities").write[Int]
     )(unlift(IndexDetailVM.unapply))
 
   implicit val indexWrites: Writes[IndexResultVM] = (

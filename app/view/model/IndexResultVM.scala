@@ -5,4 +5,4 @@ package view.model
  */
 case class IndexResultVM(index: Double, details: List[IndexDetailVM])
 
-case class IndexDetailVM(catalogName: String, calculatedValue: Double, lon: Double, lat: Double, distance: Double)
+case class IndexDetailVM(catalogName: String, calculatedValue: Double, lon: Double, lat: Double, distance: Double,priority: Double, countEntities: Int)

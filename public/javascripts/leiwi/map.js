@@ -55,9 +55,44 @@ function addFeatureToMap(lon, lat) {
     map.addLayer(vectorLayer);
 }
 
+var entityLayer = null;
+function drawEntities(details) {
+
+    removeEntites();
+    var entityFeatures = [];
+
+    $.each(details, function () {
+        var entityFeature = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.transform([this.lon, this.lat], 'EPSG:4326',
+                'EPSG:3857')),
+            name: this.catalogName,
+            population: 4000,
+            rainfall: 500
+        });
+        entityFeatures.push(entityFeature);
+    });
+
+    var vectorSource = new ol.source.Vector({
+        features: entityFeatures //add an array of features
+    });
+
+    entityLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: iconStyle
+    });
+
+    map.addLayer(entityLayer);
+}
+
 function removeMarker() {
     if (vectorLayer != null) {
         map.removeLayer(vectorLayer);
+    }
+}
+
+function removeEntites(){
+    if (entityLayer != null){
+        map.removeLayer(entityLayer);
     }
 }
 
