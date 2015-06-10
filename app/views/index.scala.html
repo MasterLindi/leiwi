@@ -3,31 +3,29 @@
 @main("Leiwi") {
     <div class="container theme-showcase">
         <div class="row">
-            <div class="col-md-12">
-                <h4>LEIWI- Lebensqualität in Wien - Willkommen!</h4>
+            <div class="col-md-2 leiwi-logo">
+
+            </div>
+            <div class="col-md-4 leiwi-header">
+                <h1>Lebensqualität in Wien</h1>
+            </div>
+            <div class="col-md-4 leiwi-ogdw-logo">
+
             </div>
         </div>
-        <div class="row">
+        <div class="row leiwi-margin-top-double">
             <div class="col-md-12">
-                Mit LEIWI kannst du abhängig von dem was Dir wichtig ist,
-                die Lebensqualität für eine bestimmte Adresse in Wien ermitteln.
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                Anleitungstext
+                Mit LEIWI können Sie nach Ihrer Zielgruppe, die Lebensqualität für den
+                Umkreis einer bestimmten Adresse in Wien ermitteln.
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h5>Bitte wählen Sie ihre Adresse mittels Auswahl oder Karte:</h5>
+        <div class="row leiwi-margin-top">
+            <div class="col-md-3">
+                <label for="autoComplete_adresse">Adresse wählen:</label>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-7">
                 <div class="ui-widget">
-                    <label for="autoComplete_adresse">Addresse wählen: </label>
                     <input id="autoComplete_adresse">
                 </div>
                 <input type="hidden" id="hidden_cord" lon="" lat="">
@@ -35,12 +33,12 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 leiwi-catalog">
                 <h5>Bitte wählen Sie Ihre Zielgruppe: </h5>
                 <div class="row">
                     <div class="col-md-12">
                         <input id="checkBox_allgemein" type="checkbox" name="allgmein" value="Allgemein"/>
-                        <label for="checkBox_allgemein">Allgmein (alle Kataloge)</label>
+                        <label for="checkBox_allgemein">Allgemein (alle Kataloge)</label>
                     </div>
                 </div>
                 <div class="row">
@@ -67,7 +65,7 @@
                         <label for="checkBox_pensionist">Pensionisten</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row leiwi-margin-top">
                     <div class="col-md-6">
                         <button class="btn btn-primary" id="button_berechnen">Berechnen</button>
                     </div>
@@ -76,22 +74,28 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div id="details" class="col-md-12 invisible">
-                        <table class="table table-striped">
-                            <thead>
-                                <th>Katalog</th>
-                                <th>Indexwert</th>
-                                <th>Gewichtung</th>
-                                <th>Anzahl</th>
-                            </thead>
-                            <tbody id="detailtable">
+                    <div id="indexValue" class="col-md-12 leiwi-align-center">
 
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
             <div id="map" class="col-md-9 map"> </div>
+        </div>
+        <div class="row leiwi-margin-top">
+            <div id="details" class="col-md-12 invisible">
+                <h2 class="leiwi-align-center">LEIWI-INDEX im Detail</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Katalog</th>
+                        <th>Indexwert</th>
+                        <th>Gewichtung</th>
+                        <th>Anzahl</th>
+                    </thead>
+                    <tbody id="detailtable">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 }

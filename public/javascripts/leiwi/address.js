@@ -47,6 +47,10 @@ function fillDetailTable(details) {
     });
 }
 
+function showIndex(index) {
+    $("#indexValue").html("<h3> LEIWI-INDEX </h3>  <h1 class='leiwi-index'>" + index + "</h1>");
+}
+
 $("#button_berechnen").click(function (event) {
     var coordStorage = $("#hidden_cord");
     var jsonData = {};
@@ -66,6 +70,7 @@ $("#button_berechnen").click(function (event) {
         contentType: 'application/json; charset=utf-8',
         success: function (item) {
             calculatedValues = item;
+            showIndex(item.index);
             addCircleToMap(item.index);
             drawEntities(item.details);
             fillDetailTable(item.details);

@@ -11,5 +11,45 @@
 }
 
 .ui-autocomplete-input{
-    width:500px;
+    width:470px;
+}
+
+.leiwi-header{
+    padding: 20px 20px 20px 30px;
+    height: 114px;
+    background-color: white;
+    text-align:center;
+}
+
+.leiwi-logo{
+    background-image: url("../../images/leiwi_logo.jpg");
+    background-repeat: no-repeat;
+    height: 114px;
+}
+
+.leiwi-ogdw-logo{
+    background-image: url("../../images/leiwi_ogdw_logo.jpg");
+    background-repeat: no-repeat;
+    height: 114px;
+    margin-left:20px;
+}
+
+.leiwi-margin-top{
+    margin-top: 20px;
+}
+
+.leiwi-margin-top-double{
+    margin-top: 40px;
+}
+
+.leiwi-align-center{
+    text-align:center;
+}
+
+.leiwi-index{
+    font-size: 100pt;
+}
+
+.leiwi-catalog{
+    margin-top: 30px;
 }

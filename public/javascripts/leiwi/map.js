@@ -124,7 +124,7 @@ var circleLayer = null;
 
 var circleStyle = new ol.style.Style({
     image: new ol.style.Circle({
-        radius: 120,
+        radius: 20,
         fill: new ol.style.Fill({
             color: 'rgba(122, 122, 122, 0.6)'
         })
