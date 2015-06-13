@@ -17,6 +17,17 @@ public class Katalog implements Serializable{
     Integer gewichtung;
     Integer anzahl;
 
+    //Custom Feature value
+    String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public Double getDistanceFromSource() {
         return distanceFromSource;
     }

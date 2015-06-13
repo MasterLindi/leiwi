@@ -14,11 +14,15 @@ public class IndexCalculatorTest {
 
     @Test
     public void testCalculateIndex(){
-
-        SimpleFeature adresse =Util.createSimpleFeatureWithPoint(Double.parseDouble("339750.0"),Double.parseDouble("4781.0"),"Adresse");
+//Landstrasse Haupstrasse
+        //SimpleFeature adresse =Util.createSimpleFeatureWithPoint(Double.parseDouble("339750.0"),Double.parseDouble("4781.0"),"Adresse");
+    //Marizaweg 1
+        SimpleFeature adresse =Util.createSimpleFeatureWithPoint(Double.parseDouble("333455.0"),Double.parseDouble("3701.0"),"Adresse");
+        //Giefinggasse 6
+    //    SimpleFeature adresse =Util.createSimpleFeatureWithPoint(Double.parseDouble("347909.0"),Double.parseDouble("7035.0"),"Adresse");
 
         IndexCalculator indexCalculator = new IndexCalculator();
-        IndexResult indexResult = indexCalculator.calculateIndex(adresse, Double.parseDouble("2500"), "Allgemein");
+        IndexResult indexResult = indexCalculator.calculateIndex(adresse, Double.parseDouble("2000"), Util.Profiles.PENSIONISTEN);
 
         Assert.assertNotNull(adresse);
 

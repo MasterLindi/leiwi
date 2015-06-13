@@ -12,4 +12,10 @@ public class FeatureImporterTest {
         FeatureImporter featureImporter = new FeatureImporter();
         featureImporter.importKatalogeFromWFS();
     }
+
+    @Test
+    public void testImportLaemdaten(){
+        FeatureImporter featureImporter = new FeatureImporter();
+        featureImporter.importLaermdaten();
+    }
 }

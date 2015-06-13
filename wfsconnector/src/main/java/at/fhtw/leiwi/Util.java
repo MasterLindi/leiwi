@@ -14,6 +14,10 @@ import org.opengis.feature.simple.SimpleFeatureType;
  */
 public class Util {
 
+    public enum Profiles {
+        ALLGEMEIN, MOBILITAET, FAMILIEN, STUDENTEN, PENSIONISTEN
+    }
+
     public static SimpleFeatureType createFeatureType() {
 
         SimpleFeatureTypeBuilder builder = new SimpleFeatureTypeBuilder();

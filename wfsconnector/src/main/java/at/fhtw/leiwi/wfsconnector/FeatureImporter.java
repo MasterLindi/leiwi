@@ -3,14 +3,26 @@ package at.fhtw.leiwi.wfsconnector;
 import at.fhtw.leiwi.feature.dao.FeatureDao;
 import at.fhtw.leiwi.feature.dao.FeatureDaoImpl;
 import at.fhtw.leiwi.index.model.Katalog;
+import at.fhtw.leiwi.laermdaten.dao.LaermdatenDao;
+import at.fhtw.leiwi.laermdaten.dao.LaermdatenDaoImpl;
 import com.vividsolutions.jts.geom.Geometry;
+import org.geotools.data.DataStore;
+import org.geotools.data.DataStoreFinder;
+import org.geotools.data.FeatureSource;
+import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
+import org.opengis.feature.Feature;
 import org.opengis.feature.GeometryAttribute;
 import org.opengis.feature.simple.SimpleFeature;
+import org.opengis.feature.type.FeatureType;
 
+import java.io.File;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -19,10 +31,12 @@ import java.util.List;
 public class FeatureImporter {
 
     FeatureDao featureDao;
+    LaermdatenDao laermdatenDao;
 
     public FeatureImporter(){
         try {
             featureDao = new FeatureDaoImpl();
+            laermdatenDao = new LaermdatenDaoImpl();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -32,7 +46,7 @@ public class FeatureImporter {
 
     public final static String CapabilitiesString = "http://data.wien.gv.at/daten/geo?version=1.1.0&service=WFS&request=GetCapabilities";
 
-    public Katalog createKatalogFromFeatureSourceDB(String wfsName, String type, SimpleFeature source, Double radius) {
+    public Katalog createKatalogFromFeatureSourceDB(String wfsName, String type, SimpleFeature source, Double radius, int gewichtung) {
         List<Katalog> resultListDB = featureDao.selectKatalogListFromFeature(type);
         Katalog katalog = null;
         List<Katalog> resultList = new ArrayList();
@@ -66,14 +80,35 @@ public class FeatureImporter {
                     }
 
                 }
-
-
             }
-
+            katalog.setGewichtung(gewichtung);
             return katalog;
         }
 
-
+    public Katalog createKatalogFromLaermdatenDB(SimpleFeature simpleFeature, Double radius, int gewichtung){
+        Katalog katalog = laermdatenDao.selectNearestFeature(simpleFeature);
+        Geometry defaultGeometry = katalog.getDefaultGeometry();
+        Double distanceSourceToFeature = defaultGeometry.distance((Geometry) simpleFeature
+                .getDefaultGeometry());
+        katalog.setType("laermdaten");
+        katalog.setDefaultGeometry(defaultGeometry);
+        katalog.setDistanceFromSource(distanceSourceToFeature);
+        Long decibel = Long.valueOf(katalog.getValue());
+        if (decibel <= 50){
+            katalog.setIndexBewertung(1);
+        }
+        else if (decibel > 50 && decibel < 60){
+            katalog.setIndexBewertung(2);
+        }else if (decibel >= 60 && decibel < 70){
+            katalog.setIndexBewertung(3);
+        }else if (decibel >= 70 && decibel < 80){
+            katalog.setIndexBewertung(4);
+        }else if (decibel >= 80){
+            katalog.setIndexBewertung(5);
+        }
+        katalog.setGewichtung(gewichtung);
+        return katalog;
+    }
 
     private void importKatalogFromFeatureSource(String wfsName, String type){
         
@@ -113,6 +148,36 @@ public class FeatureImporter {
         importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HUNDESACKERLOGD");
 
 
+
+    }
+
+    public void importLaermdaten(){
+        try {
+            LaermdatenDao laermdatenDao = new LaermdatenDaoImpl();
+            File file = new File("C:\\Shapefiles\\STRASSE_24H_ZONEN_WI.shp");
+            Map<String,URL> map = new HashMap<String,URL>();
+            map.put( "url", file.toURL() );
+            DataStore dataStore = DataStoreFinder.getDataStore(map);
+            String typeName = dataStore.getTypeNames()[0];
+
+            FeatureSource source = dataStore.getFeatureSource(typeName);
+
+
+            //Filter filter = CQL.toFilter("BBOX(THE_GEOM, 10,20,30,40)");
+            FeatureCollection<FeatureType, Feature> collection = source.getFeatures();
+            FeatureIterator<Feature> iterator = collection.features();
+            System.out.println("Anzahl: "+collection.size());
+
+
+            while( iterator.hasNext() ){
+                SimpleFeature feature = (SimpleFeature) iterator.next();
+
+                laermdatenDao.insertLaermdaten(feature);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
