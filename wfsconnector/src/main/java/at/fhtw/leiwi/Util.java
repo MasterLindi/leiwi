@@ -1,7 +1,7 @@
 package at.fhtw.leiwi;
 
+import at.fhtw.leiwi.wfsconnector.GeoTools;
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
@@ -39,9 +39,8 @@ public class Util {
 
         //create the builder
         SimpleFeatureBuilder builder = new SimpleFeatureBuilder(featureType);
-        GeometryFactory geometryFactory=new GeometryFactory();
         Coordinate coord=new Coordinate(lon,lat);
-        Point point=geometryFactory.createPoint(coord);
+        Point point = GeoTools.transformToEPSG31256(coord);
 
         //add the attributes
         builder.add( point );

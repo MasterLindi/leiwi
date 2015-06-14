@@ -1,34 +1,63 @@
 package business.service;
 
+import at.fhtw.leiwi.Util;
+import at.fhtw.leiwi.index.IndexCalculator;
+import at.fhtw.leiwi.index.model.IndexResult;
+import at.fhtw.leiwi.index.model.Katalog;
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
+import com.vividsolutions.jts.geom.Point;
 import commons.utils.JavaToScalaConverter;
+import org.opengis.feature.simple.SimpleFeature;
 import view.model.IndexDetailVM;
 import view.model.IndexResultVM;
 import view.model.IndexVM;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cli on 01/06/15.
  */
 public class IndexCalculationServiceImpl implements IndexCalculationService {
+
+    private final static Double RADIUS = 2000d;
+    private final IndexCalculator indexCalculator;
+
+    public IndexCalculationServiceImpl(){
+        indexCalculator = new IndexCalculator();
+    }
+
     @Override
     public IndexResultVM calculateIndex(IndexVM indexVM) {
+        SimpleFeature address  = Util.createSimpleFeatureWithPoint(indexVM.lon(), indexVM.lat(),"Adresse");
         if (indexVM.family()) {
-            List<IndexDetailVM> detailVMList = new ArrayList<>();
-            detailVMList.add(new IndexDetailVM("Luftgüte", 3.0, 16.4576734, 48.769889, 1.32, 3, 3));
-            detailVMList.add(new IndexDetailVM("Krankenversorung", 4.0, 16.454334, 48.764389, 3.2, 23, 33));
-            return new IndexResultVM(1.3, new JavaToScalaConverter().convertList(detailVMList));
+            return calculateIndex(address, Util.Profiles.FAMILIEN);
         } else if (indexVM.students()) {
-            List<IndexDetailVM> detailVMList = new ArrayList<>();
-            detailVMList.add(new IndexDetailVM("Luftgüte", 2.0, 16.45387874, 48.76889879, 2.12, 3, 2));
-            detailVMList.add(new IndexDetailVM("Krankenversorung", 7.0, 16.425334, 48.768349, 0.3, 3, 2));
-            return new IndexResultVM(2.3, new JavaToScalaConverter().convertList(detailVMList));
-        } else {
-            List<IndexDetailVM> detailVMList = new ArrayList<>();
-            detailVMList.add(new IndexDetailVM("Luftgüte", 8.0, 16.45387874, 48.76887889, 1.11,4, 4));
-            detailVMList.add(new IndexDetailVM("Krankenversorung", 2.0, 16.45334, 48.768349, 8.32, 6, 4));
-            return new IndexResultVM(4.3, new JavaToScalaConverter().convertList(detailVMList));
+            return calculateIndex(address, Util.Profiles.STUDENTEN);
+        } else if (indexVM.common()) {
+            return calculateIndex(address, Util.Profiles.ALLGEMEIN);
+        }else if (indexVM.mobility()) {
+            return calculateIndex(address, Util.Profiles.MOBILITAET);
+        }else{
+            return calculateIndex(address, Util.Profiles.PENSIONISTEN);
         }
+    }
+
+    private IndexResultVM calculateIndex(SimpleFeature address, Util.Profiles profile) {
+        IndexResult indexResult = indexCalculator.calculateIndex(address, RADIUS, profile);
+        ImmutableList<IndexDetailVM> indexDetailVMs = mapIndexResult(indexResult);
+
+        return new IndexResultVM(indexResult.getGesamtIndex(), new JavaToScalaConverter().convertList(indexDetailVMs));
+    }
+
+    private ImmutableList<IndexDetailVM> mapIndexResult(IndexResult indexResult) {
+        return FluentIterable.from(indexResult.getKatalogList()).transform(new Function<Katalog, IndexDetailVM>() {
+                    @Override
+                    public IndexDetailVM apply(Katalog katalog) {
+                        Point point = (Point) katalog.getDefaultGeometry();
+
+                        return new IndexDetailVM(katalog.getType(), katalog.getIndexBewertung(),
+                                point.getX(), point.getY(), katalog.getDistanceFromSource(), katalog.getGewichtung(), 1);
+                    }
+                }).toList();
     }
 }

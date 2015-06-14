@@ -29,7 +29,7 @@ public class GeoTools {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return String.format("SRID=%s;%s",SRID, stringWriter.toString());
+        return String.format("SRID=%s;%s", SRID, stringWriter.toString());
     }
 
     public static Geometry parseWktGeometryString(String wktGeometry) {
@@ -73,7 +73,9 @@ public class GeoTools {
     }
 
     public static Point transformFromEPSG3068(Double x, Double y) {
-        if (x == null || y == null) { return null; }
+        if (x == null || y == null) {
+            return null;
+        }
         Coordinate soldnerCoord = new Coordinate(x, y);
         Coordinate transformedCoord = GeoTools.transformFromEPSG3068(soldnerCoord);
         return GeoTools.createPoint(transformedCoord);
@@ -191,14 +193,42 @@ public class GeoTools {
         return new GeometryFactory(new PrecisionModel(), 4326);
     }
 
-    public static Double getLongitude(Geometry geometry){
+    public static Double getLongitude(Geometry geometry) {
         Point point = (Point) geometry;
         return point.getX();
     }
 
-    public static Double getLattitude(Geometry geometry){
-        Point point = (Point)geometry;
+    public static Double getLattitude(Geometry geometry) {
+        Point point = (Point) geometry;
         return point.getY();
     }
 
+    public static Point transformToEPSG31256(Coordinate sourceCoordinates) {
+        try {
+            CoordinateReferenceSystem sourceCrs = CRS.decode("EPSG:4326");
+            CoordinateReferenceSystem targetCrs = CRS.decode("EPSG:31256");
+
+            boolean lenient = true;
+            MathTransform mathTransform = CRS.findMathTransform(sourceCrs, targetCrs, lenient);
+
+            DirectPosition2D srcDirectPosition2D = new DirectPosition2D(sourceCrs, sourceCoordinates.x, sourceCoordinates.y);
+            DirectPosition2D destDirectPosition2D = new DirectPosition2D();
+            mathTransform.transform(srcDirectPosition2D, destDirectPosition2D);
+
+            return createPoint(destDirectPosition2D.y, destDirectPosition2D.x);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+//        GeometryFactory gf = createGeometryFactory();
+//        Coordinate c = new Coordinate(lon, lat);
+//
+//        Point p = gf.createPoint(c);
+//
+//        CoordinateReferenceSystem utmCrs = CRS.decode("EPSG:4326");
+//        MathTransform mathTransform = CRS.findMathTransform(utmCrs, DefaultGeographicCRS.WGS84, false);
+//        return (Point) JTS.transform(p, mathTransform);
+
+    }
 }

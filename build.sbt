@@ -22,12 +22,14 @@ lazy val geoToolsPostgresqlDep =  "org.geotools" % "gt-epsg-postgresql" % "13-RC
 
 lazy val postgis =  "org.postgis" % "postgis-jdbc" % "1.3.3"
 
+lazy val postgreV4 = "postgresql" % "postgresql" % "9.1-901.jdbc4"
+
 libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache,
   json,
-  "postgresql" % "postgresql" % "9.1-901.jdbc4",
+  postgreV4,
   javaxMediaDep,
   geoToolsWfsDep,
   geoToolsHsqlDep,
