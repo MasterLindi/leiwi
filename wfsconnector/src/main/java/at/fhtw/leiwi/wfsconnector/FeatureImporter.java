@@ -123,29 +123,29 @@ public class FeatureImporter {
     public void importKatalogeFromWFS(){
 
         importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:MARKTFLAECHEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SCHULEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:UNIVERSITAETOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:VOLKSHOCHSCHULEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:KINDERGARTENOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:GARAGENOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:KRANKENHAUSOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WOHNPFLEGEHAUSOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WANDERWEGEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SPORTSTAETTENOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:BADESTELLENOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SPIELPLATZOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:FUSSGEHERZONEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WOHNSTRASSEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:TEMPOZONEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WLANWIENATOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SCHWIMMBADOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:FAHRRADABSTELLANLAGEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HALTESTELLEWLOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:PARKANLAGEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:OEFFHALTESTOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:CARSHARINGOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:CITYBIKEOGD");
-        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HUNDESACKERLOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SCHULEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:UNIVERSITAETOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:VOLKSHOCHSCHULEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:KINDERGARTENOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:GARAGENOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:KRANKENHAUSOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WOHNPFLEGEHAUSOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WANDERWEGEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SPORTSTAETTENOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:BADESTELLENOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SPIELPLATZOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:FUSSGEHERZONEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WOHNSTRASSEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:TEMPOZONEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:WLANWIENATOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:SCHWIMMBADOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:FAHRRADABSTELLANLAGEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HALTESTELLEWLOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:PARKANLAGEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:OEFFHALTESTOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:CARSHARINGOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:CITYBIKEOGD");
+//        importKatalogFromFeatureSource(CapabilitiesString, "ogdwien:HUNDESACKERLOGD");
 
 
 

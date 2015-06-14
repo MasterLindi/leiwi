@@ -19,6 +19,8 @@ public class WfsConnector {
         try {
             Map connectionParameters = new HashMap();
             connectionParameters.put("WFSDataStoreFactory:GET_CAPABILITIES_URL", wfsName);
+            connectionParameters.put("WFSDataStoreFactory:USEDEFAULTSRS", "EPSG:");
+
 
             // Step 2 - connection
             DataStore data = DataStoreFinder.getDataStore(connectionParameters);

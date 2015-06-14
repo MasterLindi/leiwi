@@ -208,27 +208,22 @@ public class GeoTools {
             CoordinateReferenceSystem sourceCrs = CRS.decode("EPSG:4326");
             CoordinateReferenceSystem targetCrs = CRS.decode("EPSG:31256");
 
-            boolean lenient = true;
+            boolean lenient = false;
             MathTransform mathTransform = CRS.findMathTransform(sourceCrs, targetCrs, lenient);
 
             DirectPosition2D srcDirectPosition2D = new DirectPosition2D(sourceCrs, sourceCoordinates.x, sourceCoordinates.y);
             DirectPosition2D destDirectPosition2D = new DirectPosition2D();
             mathTransform.transform(srcDirectPosition2D, destDirectPosition2D);
 
-            return createPoint(destDirectPosition2D.y, destDirectPosition2D.x);
+//            MathTransform transform = CRS.findMathTransform(sourceCrs, targetCrs, false);
+//            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+//            Point point = geometryFactory.createPoint(new Coordinate(lon, lat));
+//            Point targetPoint = (Point) JTS.transform(point, transform);
+
+            return createPoint(destDirectPosition2D.x, destDirectPosition2D.y);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
-//        GeometryFactory gf = createGeometryFactory();
-//        Coordinate c = new Coordinate(lon, lat);
-//
-//        Point p = gf.createPoint(c);
-//
-//        CoordinateReferenceSystem utmCrs = CRS.decode("EPSG:4326");
-//        MathTransform mathTransform = CRS.findMathTransform(utmCrs, DefaultGeographicCRS.WGS84, false);
-//        return (Point) JTS.transform(p, mathTransform);
 
     }
 }

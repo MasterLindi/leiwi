@@ -41,7 +41,9 @@ public class Util {
         SimpleFeatureBuilder builder = new SimpleFeatureBuilder(featureType);
         Coordinate coord=new Coordinate(lon,lat);
         Point point = GeoTools.transformToEPSG31256(coord);
-
+//        GeometryFactory geometryFactory=new GeometryFactory();
+//        Coordinate coord=new Coordinate(lon,lat);
+//        Point point=geometryFactory.createPoint(coord);
         //add the attributes
         builder.add( point );
         builder.add( name );
@@ -49,4 +51,5 @@ public class Util {
         //build the feature
         return builder.buildFeature( name );
     }
+
 }
