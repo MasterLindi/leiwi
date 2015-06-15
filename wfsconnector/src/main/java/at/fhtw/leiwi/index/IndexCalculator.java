@@ -96,7 +96,7 @@ public class IndexCalculator {
         katalogList.add(featureImporter.createKatalogFromLaermdatenDB(adresseFeature,radius,3));
 
         indexResult.setGesamtIndex(gesamtindexBerechnung(katalogList));
-
+        indexResult.setKatalogList(katalogList);
         System.out.println("Gesamtindex: "+ indexResult.getGesamtIndex());
         return indexResult;
     }
@@ -124,6 +124,7 @@ public class IndexCalculator {
         katalogList.add(featureImporter.createKatalogFromFeatureSourceDB(IndexCalculator.CapabilitiesString, "ogdwien:CITYBIKEOGD",adresseFeature,radius,1));
 
         indexResult.setGesamtIndex(gesamtindexBerechnung(katalogList));
+        indexResult.setKatalogList(katalogList);
         System.out.println("Gesamtindex: "+ indexResult.getGesamtIndex());
         return indexResult;
     }
@@ -169,6 +170,7 @@ public class IndexCalculator {
         katalogList.add(featureImporter.createKatalogFromLaermdatenDB(adresseFeature,radius,3));
 
         indexResult.setGesamtIndex(gesamtindexBerechnung(katalogList));
+        indexResult.setKatalogList(katalogList);
         System.out.println("Gesamtindex: "+ indexResult.getGesamtIndex());
         return indexResult;
     }
@@ -212,6 +214,7 @@ public class IndexCalculator {
         katalogList.add(featureImporter.createKatalogFromLaermdatenDB(adresseFeature,radius,3));
 
         indexResult.setGesamtIndex(gesamtindexBerechnung(katalogList));
+        indexResult.setKatalogList(katalogList);
         System.out.println("Gesamtindex: "+ indexResult.getGesamtIndex());
         return indexResult;
     }
@@ -231,7 +234,10 @@ public class IndexCalculator {
         //Sportstätten
         katalogList.add(featureImporter.createKatalogFromFeatureSourceDB(IndexCalculator.CapabilitiesString, "ogdwien:SPORTSTAETTENOGD",adresseFeature,radius,1));
         //Badestellen
-        katalogList.add(featureImporter.createKatalogFromFeatureSourceDB(IndexCalculator.CapabilitiesString, "ogdwien:BADESTELLENOGD",adresseFeature,radius,1));
+        Katalog katalogFromFeatureSourceDB = featureImporter.createKatalogFromFeatureSourceDB(IndexCalculator.CapabilitiesString, "ogdwien:BADESTELLENOGD", adresseFeature, radius, 1);
+        if (katalogFromFeatureSourceDB != null){
+            katalogList.add(katalogFromFeatureSourceDB);
+        }
         //Public WLAN
         katalogList.add(featureImporter.createKatalogFromFeatureSourceDB(IndexCalculator.CapabilitiesString, "ogdwien:WLANWIENATOGD",adresseFeature,radius,1));
         //Schwimmbad
@@ -251,6 +257,7 @@ public class IndexCalculator {
 
 
         indexResult.setGesamtIndex(gesamtindexBerechnung(katalogList));
+        indexResult.setKatalogList(katalogList);
         System.out.println("Gesamtindex: "+ indexResult.getGesamtIndex());
         return indexResult;
     }
@@ -259,19 +266,20 @@ public class IndexCalculator {
         double resultIndexBewertung = 0;
         int resultSize = katalogList.size();
         for (Katalog katalog : katalogList) {
-            resultIndexBewertung +=katalog.getIndexBewertung();
-            if (katalog.getGewichtung() == 2){
-                resultIndexBewertung +=katalog.getIndexBewertung();
-                resultSize++;
-            } else if (katalog.getGewichtung() == 3){
-                resultIndexBewertung +=katalog.getIndexBewertung();
-                resultIndexBewertung +=katalog.getIndexBewertung();
-                resultSize += 2;
+            if (katalog != null) {
+                resultIndexBewertung += katalog.getIndexBewertung();
+                if (katalog.getGewichtung() == 2) {
+                    resultIndexBewertung += katalog.getIndexBewertung();
+                    resultSize++;
+                } else if (katalog.getGewichtung() == 3) {
+                    resultIndexBewertung += katalog.getIndexBewertung();
+                    resultIndexBewertung += katalog.getIndexBewertung();
+                    resultSize += 2;
+                }
+
+                System.out.println(katalog.toString());
             }
-
-            System.out.println(katalog.toString());
         }
-
         return resultIndexBewertung/new Double(resultSize);
     }
 }

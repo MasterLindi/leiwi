@@ -32,6 +32,7 @@ $("#button_reset").click(function (event) {
     removeEntites();
     removeCircle();
     $("#details").addClass("invisible");
+    $("#indexValue").html("");
 });
 
 function fillDetailTable(details) {

@@ -3,8 +3,6 @@ package business.service;
 import at.fhtw.leiwi.Util;
 import at.fhtw.leiwi.index.IndexCalculator;
 import at.fhtw.leiwi.index.model.IndexResult;
-import at.fhtw.leiwi.index.model.Katalog;
-import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.vividsolutions.jts.geom.Point;
@@ -22,22 +20,22 @@ public class IndexCalculationServiceImpl implements IndexCalculationService {
     private final static Double RADIUS = 2000d;
     private final IndexCalculator indexCalculator;
 
-    public IndexCalculationServiceImpl(){
+    public IndexCalculationServiceImpl() {
         indexCalculator = new IndexCalculator();
     }
 
     @Override
     public IndexResultVM calculateIndex(IndexVM indexVM) {
-        SimpleFeature address  = Util.createSimpleFeatureWithPoint(indexVM.lon(), indexVM.lat(),"Adresse");
+        SimpleFeature address = Util.createSimpleFeatureWithPoint(indexVM.lat(), indexVM.lon(), "Adresse");
         if (indexVM.family()) {
             return calculateIndex(address, Util.Profiles.FAMILIEN);
         } else if (indexVM.students()) {
             return calculateIndex(address, Util.Profiles.STUDENTEN);
         } else if (indexVM.common()) {
             return calculateIndex(address, Util.Profiles.ALLGEMEIN);
-        }else if (indexVM.mobility()) {
+        } else if (indexVM.mobility()) {
             return calculateIndex(address, Util.Profiles.MOBILITAET);
-        }else{
+        } else {
             return calculateIndex(address, Util.Profiles.PENSIONISTEN);
         }
     }
@@ -45,19 +43,25 @@ public class IndexCalculationServiceImpl implements IndexCalculationService {
     private IndexResultVM calculateIndex(SimpleFeature address, Util.Profiles profile) {
         IndexResult indexResult = indexCalculator.calculateIndex(address, RADIUS, profile);
         ImmutableList<IndexDetailVM> indexDetailVMs = mapIndexResult(indexResult);
+        return new IndexResultVM(round(indexResult.getGesamtIndex(),2), new JavaToScalaConverter().convertList(indexDetailVMs));
+    }
 
-        return new IndexResultVM(indexResult.getGesamtIndex(), new JavaToScalaConverter().convertList(indexDetailVMs));
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     private ImmutableList<IndexDetailVM> mapIndexResult(IndexResult indexResult) {
-        return FluentIterable.from(indexResult.getKatalogList()).transform(new Function<Katalog, IndexDetailVM>() {
-                    @Override
-                    public IndexDetailVM apply(Katalog katalog) {
-                        Point point = (Point) katalog.getDefaultGeometry();
+        return FluentIterable.from(indexResult.getKatalogList()).transform(katalog -> {
+            if (katalog == null) return null;
+            Point point = (Point) katalog.getDefaultGeometry();
 
-                        return new IndexDetailVM(katalog.getType(), katalog.getIndexBewertung(),
-                                point.getX(), point.getY(), katalog.getDistanceFromSource(), katalog.getGewichtung(), 1);
-                    }
-                }).toList();
+            return new IndexDetailVM(katalog.getType(), katalog.getIndexBewertung(),
+                    point.getX(), point.getY(), katalog.getDistanceFromSource(), katalog.getGewichtung(), 1);
+        }).filter(indexDetailVM -> indexDetailVM != null).toList();
     }
 }

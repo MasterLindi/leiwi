@@ -91,7 +91,7 @@ public class FeatureDaoImpl implements FeatureDao {
 //            ((org.postgresql.PGConnection)conn).addDataType("box3d",Class.forName("org.postgis.PGbox3d"));
 
 
-            String geomsql ="select * from feature where type = ?";
+            String geomsql ="select id,coordinate,type from feature where type = ?";
             PreparedStatement psSE= null;
             psSE = conn.prepareStatement(geomsql);
             psSE.setString(1, type);

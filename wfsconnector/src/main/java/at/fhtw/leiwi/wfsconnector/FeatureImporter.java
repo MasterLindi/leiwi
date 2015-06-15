@@ -81,7 +81,9 @@ public class FeatureImporter {
 
                 }
             }
-            katalog.setGewichtung(gewichtung);
+            if (katalog != null) {
+                katalog.setGewichtung(gewichtung);
+            }
             return katalog;
         }
 

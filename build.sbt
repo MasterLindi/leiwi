@@ -18,7 +18,7 @@ lazy val geoToolsWfsDep = "org.geotools" % "gt-wfs" % "13-RC1" exclude("javax.me
 
 lazy val geoToolsHsqlDep =  "org.geotools" % "gt-epsg-hsql" % "13-RC1"
 
-lazy val geoToolsPostgresqlDep =  "org.geotools" % "gt-epsg-postgresql" % "13-RC1"
+//lazy val geoToolsPostgresqlDep =  "org.geotools" % "gt-epsg-postgresql" % "13-RC1"
 
 lazy val postgis =  "org.postgis" % "postgis-jdbc" % "1.3.3"
 
@@ -33,8 +33,7 @@ libraryDependencies ++= Seq(
   javaxMediaDep,
   geoToolsWfsDep,
   geoToolsHsqlDep,
-  geoToolsPostgresqlDep,
-  postgis,
+//  postgis,
   "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
 )
 
@@ -80,7 +79,7 @@ lazy val wfsconnector = (project in file("wfsconnector"))
         javaxMediaDep,
         geoToolsWfsDep,
         geoToolsHsqlDep,
-        geoToolsPostgresqlDep,
+        postgreV4,
         postgis
       )
     ):_*)
