@@ -4,6 +4,8 @@ name := "leiwi"
 
 scalaVersion := "2.11.5"
 
+javacOptions ++= Seq("-encoding", "UTF-8")
+
 val buildResolvers = resolvers ++= Seq(
   "Open Source Geospatial Foundation Repository" at "http://download.osgeo.org/webdav/geotools"
 )
