@@ -4,7 +4,6 @@ name := "leiwi"
 
 scalaVersion := "2.11.5"
 
-javacOptions ++= Seq("-encoding", "UTF-8")
 
 val buildResolvers = resolvers ++= Seq(
   "Open Source Geospatial Foundation Repository" at "http://download.osgeo.org/webdav/geotools"
@@ -44,6 +43,8 @@ lazy val commonSettings = Seq(
   version := "0.1.0-SNAPSHOT",
   scalaVersion := "2.11.4"
 )
+
+javacOptions in wfsconnector ++= Seq("-encoding", "UTF-8")
 
 lazy val leiwi = (project in file("."))
   .settings(commonSettings: _*)
