@@ -34,6 +34,32 @@
     margin-left:20px;
 }
 
+
+.leiwi-technikum-logo{
+    background-image: url("../../images/leiwi_technikum_logo.png");
+    background-repeat: no-repeat;
+    height: 114px;
+}
+
+.line-separator{
+
+    height:1px;
+
+    background:#717171;
+
+    border-bottom:1px solid #313030;
+
+    margin-bottom:10px;
+}
+
+
+
+.leiwi-opendata-logo{
+    background-image: url("../../images/leiwi_opendata_logo.png");
+    background-repeat: no-repeat;
+    height: 114px;
+}
+
 .leiwi-margin-top{
     margin-top: 20px;
 }
