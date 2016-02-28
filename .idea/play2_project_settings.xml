@@ -7,8 +7,8 @@
           <value>
             <ProjectSettingsEntry>
               <option name="version" value="2.3.8" />
-              <option name="sourceDir" value="C:\DEV\Projekte\leiwi\conf" />
-              <option name="confDir" value="C:\DEV\Projekte\leiwi\app" />
+              <option name="sourceDir" value="C:\DEV\Projekte\leiwi\app" />
+              <option name="confDir" value="C:\DEV\Projekte\leiwi\conf" />
               <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.3.8.jar" />
               <option name="templateImports">
                 <list>
@@ -27,6 +27,62 @@
                 </list>
               </option>
               <option name="uri" value="C:\DEV\Projekte\leiwi" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="playConf">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="confDir" value="C:\DEV\Projekte\leiwi\conf" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="playRoutesImports">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="routesImports">
+                <list>
+                  <option value="controllers.Assets.Asset" />
+                </list>
+              </option>
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="playVersion">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="version" value="2.3.8" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="sourceDirectory">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="sourceDir" value="C:\DEV\Projekte\leiwi\app" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="twirlTemplatesImports">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="templateImports">
+                <list>
+                  <option value="play.api.templates.PlayMagic._" />
+                  <option value="models._" />
+                  <option value="controllers._" />
+                  <option value="play.api.i18n._" />
+                  <option value="play.api.mvc._" />
+                  <option value="play.api.data._" />
+                  <option value="views.xml._" />
+                </list>
+              </option>
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="uri">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="uri" value="/C:/DEV/Projekte/leiwi" />
             </ProjectSettingsEntry>
           </value>
         </entry>

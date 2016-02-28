@@ -22,6 +22,20 @@
         <option name="sbtVersion" value="0.13.5" />
         <option name="useAutoImport" value="true" />
         <option name="useOurOwnAutoImport" value="true" />
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/addressconnector" />
+            <option value="$PROJECT_DIR$/addressconnector/project" />
+            <option value="$PROJECT_DIR$/dal" />
+            <option value="$PROJECT_DIR$/dal/project" />
+            <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/webapiconnector" />
+            <option value="$PROJECT_DIR$/webapiconnector/project" />
+            <option value="$PROJECT_DIR$/wfsconnector" />
+            <option value="$PROJECT_DIR$/wfsconnector/project" />
+          </set>
+        </option>
       </SbtProjectSettings>
     </option>
   </component>

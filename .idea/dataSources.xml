@@ -6,7 +6,6 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://vbpostgres:5432/leiwi</jdbc-url>
-      <libraries />
     </data-source>
   </component>
 </project>

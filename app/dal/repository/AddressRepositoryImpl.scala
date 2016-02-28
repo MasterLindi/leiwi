@@ -19,7 +19,7 @@ class AddressRepositoryImpl extends AddressRepository {
   def findNearestAddress(point: Geometry) : Address = {
     val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
       "updateTime from Address where ST_Distance(coordinate,ST_GeomFromEWKT({coordinate})) <= " +
-      "(Select Min(ST_Distance(coordinate,ST_GeomFromEWKT({coordinate}))) from Address);")
+      "(Select Min(ST_Distance(coordinate,ST_GeomFromEWKT({coordinate}))) from Address where zip <> -1);")
     DB.withConnection { implicit connection =>
       val result: List[Address] = sqlQuery
             .on('coordinate -> GeoTools.createWktGeometryString(point))
@@ -30,7 +30,7 @@ class AddressRepositoryImpl extends AddressRepository {
 
   def findByName(term: String) : List[Address] = {
     val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
-      "updateTime from Address where street like {streetName} order by street, houseNr LIMIT 50;")
+      "updateTime from Address where street like {streetName} and zip <> -1 order by street, houseNr ::int LIMIT 50;")
     DB.withConnection { implicit connection =>
       val result: List[Address] = sqlQuery
         .on('streetName -> (term + "%"))

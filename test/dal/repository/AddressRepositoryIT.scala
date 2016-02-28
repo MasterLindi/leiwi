@@ -31,4 +31,12 @@ class AddressRepositoryIT extends FlatSpec{
     assert(actual != null)
     WithTestServer.stop()
   }
+
+  it should "find addresses by searchTerm" in{
+    WithTestServer.start()
+    val addressRepo = new AddressRepositoryImpl()
+    val actual = addressRepo.findByName("Donaustadt")
+    assert(actual != null)
+    WithTestServer.stop()
+  }
 }

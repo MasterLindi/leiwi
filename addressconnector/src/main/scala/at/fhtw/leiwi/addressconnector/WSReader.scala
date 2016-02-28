@@ -35,13 +35,22 @@ class WSReader {
 
       val coordinate = (json \\ "coordinates").seq
 
+      val addresse = (json \\ "Adresse").seq.head.asInstanceOf[JsString].value
+
+      val actualAddress = String.format("%s %s", streetName, houseNr)
+      if (!addresse.equals(actualAddress)){
+        return null
+      }else {
+        val test = 0
+      }
+
       val lat = coordinate.map(a => a(0)).head.toString()
       val lon = coordinate.map(a => a(1)).head.toString()
 
       src.close()
       return new WSAddress(bezirk, streetName, houseNr, zip, lat.toDouble, lon.toDouble)
     } catch {
-      case e: Exception => null
+      case e: Exception =>  println(e)
     } finally {
       i = i + 1
     }
