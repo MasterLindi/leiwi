@@ -2,7 +2,7 @@ $("#autoComplete_adresse").autocomplete({
     source: "/addressSearch",
     minLength: 2,
     select: function (event, ui) {
-        $("#autoComplete_adresse").val(ui.item.street + ", " + ui.item.houseNr + "; " + ui.item.district);
+        $("#autoComplete_adresse").val(ui.item.street + " " + ui.item.houseNr + ", " + ui.item.district);
         addFeatureToMap(ui.item.lon, ui.item.lat);
         storeCoordinateInHiddenFields(ui.item.lon, ui.item.lat);
         return false;
@@ -10,7 +10,7 @@ $("#autoComplete_adresse").autocomplete({
 })
     .autocomplete("instance")._renderItem = function (ul, item) {
     return $("<li>")
-        .append("<a>" + item.street + ", " + item.houseNr + "; " + item.district + "</a>")
+        .append("<a>" + item.street + " " + item.houseNr + ", " + item.district + "</a>")
         .appendTo(ul);
 };
 

@@ -1,101 +1,96 @@
 @(message: String)
 
 @main("Leiwi") {
-    <div class="container theme-showcase">
-        <div class="row">
-            <div class="col-md-2 leiwi-logo">
+    <div class="row leiwi-margin-top-double">
+        <div class="col-md-12">
+            With LEIWI you can calculate a quality of life index which is depending on your target audience
+            within a radius of 2km from your address.
+        </div>
+    </div>
 
+    <div class="row leiwi-margin-top">
+        <div class="col-md-3">
+            <label for="autoComplete_adresse">Choose Address:</label>
+        </div>
+        <div class="col-md-7">
+            <div class="ui-widget">
+                <input id="autoComplete_adresse">
             </div>
-            <div class="col-md-4 leiwi-header">
-                <h1>Quality of Life in Vienna</h1>
-            </div>
-            <div class="col-md-4 leiwi-ogdw-logo">
+            <input type="hidden" id="hidden_cord" lon="" lat="">
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-3 leiwi-catalog">
+            <h5>Choose Target Audience: </h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="checkBox_allgemein" type="checkbox" name="allgmein" value="Allgemein"/>
+                    <label for="checkBox_allgemein">General (all Catalogs)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="checkBox_mobilitaet" type="checkbox" name="mobilitaet" value="Mobilität"/>
+                    <label for="checkBox_mobilitaet">Mobility</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="checkBox_familie" type="checkbox" name="familie" value="Familie"/>
+                    <label for="checkBox_familie">Family</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="checkBox_student" type="checkbox" name="student" value="Student"/>
+                    <label for="checkBox_student">Student</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="checkBox_pensionist" type="checkbox" name="pensionist" value="Pensionist"/>
+                    <label for="checkBox_pensionist">Retiree</label>
+                </div>
+            </div>
+            <div class="row leiwi-margin-top">
+                <div class="col-md-6">
+                    <button class="btn btn-primary" id="button_berechnen">Calculate</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" id="button_reset">Reset</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="indexValue" class="col-md-12 leiwi-align-center">
+
+                </div>
             </div>
         </div>
-        <div class="row leiwi-margin-top-double">
-            <div class="col-md-12">
-                With LEIWI you can calculate a quality of life index which is depending on your target audience
-                within a radius of 2km from your address.
-            </div>
+        <div id="map" class="col-md-9 map"> </div>
+    </div>
+    <div class="row leiwi-margin-top">
+        <div id="details" class="col-md-12 invisible">
+            <h2 class="leiwi-align-center">The LEIWI-Index in Detail</h2>
+            <table class="table table-striped">
+                <thead>
+                    <th>Catalog</th>
+                    <th>Index Number</th>
+                    <th>Emphasis</th>
+                    <th>Quantity</th>
+                </thead>
+                <tbody id="detailtable">
+
+                </tbody>
+            </table>
         </div>
-
-        <div class="row leiwi-margin-top">
-            <div class="col-md-3">
-                <label for="autoComplete_adresse">Choose Address:</label>
-            </div>
-            <div class="col-md-7">
-                <div class="ui-widget">
-                    <input id="autoComplete_adresse">
-                </div>
-                <input type="hidden" id="hidden_cord" lon="" lat="">
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="leiwi-impressum-btn" href="/impressum">Impressum</a>
         </div>
-
-        <div class="row">
-            <div class="col-md-3 leiwi-catalog">
-                <h5>Choose Target Audience: </h5>
-                <div class="row">
-                    <div class="col-md-12">
-                        <input id="checkBox_allgemein" type="checkbox" name="allgmein" value="Allgemein"/>
-                        <label for="checkBox_allgemein">General (all Catalogs)</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <input id="checkBox_mobilitaet" type="checkbox" name="mobilitaet" value="Mobilität"/>
-                        <label for="checkBox_mobilitaet">Mobility</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <input id="checkBox_familie" type="checkbox" name="familie" value="Familie"/>
-                        <label for="checkBox_familie">Family</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <input id="checkBox_student" type="checkbox" name="student" value="Student"/>
-                        <label for="checkBox_student">Student</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <input id="checkBox_pensionist" type="checkbox" name="pensionist" value="Pensionist"/>
-                        <label for="checkBox_pensionist">Retiree</label>
-                    </div>
-                </div>
-                <div class="row leiwi-margin-top">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary" id="button_berechnen">Calculate</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-primary" id="button_reset">Reset</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div id="indexValue" class="col-md-12 leiwi-align-center">
-
-                    </div>
-                </div>
-            </div>
-            <div id="map" class="col-md-9 map"> </div>
-        </div>
-        <div class="row leiwi-margin-top">
-            <div id="details" class="col-md-12 invisible">
-                <h2 class="leiwi-align-center">The LEIWI-Index in Detail</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <th>Catalog</th>
-                        <th>Index Number</th>
-                        <th>Emphasis</th>
-                        <th>Quantity</th>
-                    </thead>
-                    <tbody id="detailtable">
-
-                    </tbody>
-                </table>
-            </div>
+        <div class="col-md-6">
+            Irgendetwas andres
         </div>
     </div>
 }
@@ -103,7 +98,6 @@
 <link rel="stylesheet" href="http://openlayers.org/en/v3.5.0/css/ol.css" type="text/css">
 <script src="http://openlayers.org/en/v3.5.0/build/ol.js" type="text/javascript"></script>
 
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/leiwi/index.css")">
 <script src="@routes.Assets.at("javascripts/leiwi/map.js")" type="text/javascript"></script>
 
 <script src="@routes.Assets.at("javascripts/leiwi/address.js")" type="text/javascript"></script>

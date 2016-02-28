@@ -19,7 +19,7 @@ var iconStyle = new ol.style.Style({
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
         opacity: 0.75,
-        src: 'http://ol3js.org/en/master/examples/data/icon.png'
+        src: '../assets/images/map_icon.png'
     }))
 });
 
@@ -114,7 +114,7 @@ map.on('singleclick', function (evt) {
         url: "coord",
         contentType: 'application/json; charset=utf-8',
         success: function (item) {
-            $("#autoComplete_adresse").val(item.street + ", " + item.houseNr + "; " + item.district)
+            $("#autoComplete_adresse").val(item.street + " " + item.houseNr + ", " + item.district)
         }
     });
 });
