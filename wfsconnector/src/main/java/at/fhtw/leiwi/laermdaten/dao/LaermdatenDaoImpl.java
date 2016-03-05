@@ -22,7 +22,7 @@ public class LaermdatenDaoImpl implements LaermdatenDao {
 
     public LaermdatenDaoImpl() throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://vbpostgres:5432/leiwi";
+        String url = "jdbc:postgresql://localhost:5433/leiwi";
         conn = DriverManager.getConnection(url, "leiwi", "leiwi");
     }
 
