@@ -1,6 +1,6 @@
 package dal.repository
 
-import java.util.UUID
+import java.util.{Locale, UUID}
 
 import anorm._
 import at.fhtw.leiwi.wfsconnector.GeoTools
@@ -30,10 +30,10 @@ class AddressRepositoryImpl extends AddressRepository {
 
   def findByName(term: String) : List[Address] = {
     val sqlQuery = SQL("select id, street, houseNr, zip, district, ST_AsEWKT(coordinate) as coordinate, " +
-      "updateTime from Address where street like {streetName} and zip <> -1 order by street, houseNr ::int LIMIT 50;")
+      "updateTime from Address where lower(street) like {streetName} and zip <> -1 order by street, houseNr ::int LIMIT 50;")
     DB.withConnection { implicit connection =>
       val result: List[Address] = sqlQuery
-        .on('streetName -> (term + "%"))
+        .on('streetName -> (term.toLowerCase(Locale.GERMAN) + "%"))
         .as(Address.simple *)
       return result;
     }
