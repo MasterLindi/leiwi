@@ -17,6 +17,8 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.type.FeatureType;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class FeatureImporter {
                     katalog.setId(katalogDB.getId());
                     katalog.setType(type);
                     katalog.setDefaultGeometry(defaultGeometry);
-                    katalog.setDistanceFromSource(distanceResult);
+                    katalog.setDistanceFromSource(FeatureImporter.round(distanceResult,2));
                     if (distanceResult < radius / 4) {
                         katalog.setIndexBewertung(1);
                     } else if (distanceResult > (radius / 4) && distanceResult < (radius / 4 * 2)) {
@@ -87,15 +89,26 @@ public class FeatureImporter {
             return katalog;
         }
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     public Katalog createKatalogFromLaermdatenDB(SimpleFeature simpleFeature, Double radius, int gewichtung){
         Katalog katalog = laermdatenDao.selectNearestFeature(simpleFeature);
         Geometry defaultGeometry = katalog.getDefaultGeometry();
         Double distanceSourceToFeature = defaultGeometry.distance((Geometry) simpleFeature
                 .getDefaultGeometry());
-        katalog.setType("laermdaten");
+        katalog.setType("laermdaten (dB for nearest Entity)");
         katalog.setDefaultGeometry(defaultGeometry);
-        katalog.setDistanceFromSource(distanceSourceToFeature);
+
+
         Long decibel = Long.valueOf(katalog.getValue());
+        Double ddecibel = Double.valueOf(katalog.getValue());
+        katalog.setDistanceFromSource(ddecibel);
         if (decibel <= 50){
             katalog.setIndexBewertung(1);
         }

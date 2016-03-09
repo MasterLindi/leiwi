@@ -43,7 +43,7 @@ function fillDetailTable(details) {
             "<td>" + this.catalogName + "</td>" +
             "<td>" + this.calculatedValue + "</td>" +
             "<td>" + this.priority + "</td>" +
-            "<td>" + this.countEntities + "</td>" +
+            "<td>" + this.distance + "</td>" +
             "</tr>");
     });
 }

@@ -1,16 +1,16 @@
 @(message: String)
 
-@main("Leiwi") {
+@main("Leiwi - Alpha") {
     <div class="row leiwi-margin-top-double">
         <div class="col-md-8">
             With LEIWI you can calculate a quality of life index which is depending on your target audience
-            within a radius of 2km from your address.
+            within a radius of 2km from your address. The resulting index corresponds to the school grading system from 1 (very good) to 5 (insufficient).
         </div>
     </div>
 
     <div class="row leiwi-margin-top">
         <div class="col-md-3">
-            <label for="autoComplete_adresse">Choose Address:</label>
+            <label for="autoComplete_adresse">Enter Address (or click in Map):</label>
         </div>
         <div class="col-md-7">
             <div class="ui-widget">
@@ -77,7 +77,7 @@
                     <th>Catalog</th>
                     <th>Index Number</th>
                     <th>Emphasis</th>
-                    <th>Quantity</th>
+                    <th>Distance to nearest Entity(in meter)</th>
                 </thead>
                 <tbody id="detailtable">
 
